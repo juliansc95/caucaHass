@@ -61,9 +61,9 @@
                                           <i class="icon-eye"></i>
                                         </button> &nbsp;
                                     </td> 
-                                    <td v-text="predio.nombre"></td>
+                                    <td v-text="predio.nombre_productor"></td>
                                     <td v-text="predio.nombre_finca"></td> 
-                                    <td v-text="predio.fechaSiembra"></td> 
+                                    <td v-text="predio.fechaAplicacion"></td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -116,46 +116,50 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Fecha de Siembra</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Fecha de Aplicacion</label>
                                     <div class="col-md-9">
-                                         <v-datepicker :inline="true" v-model="fechaSiembra "></v-datepicker>
+                                         <v-datepicker :inline="true" v-model="fechaAplicacion "></v-datepicker>
                                     </div>
                                 </div>
                                  <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Nombre comercial del producto</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="propietario"  class="form-control" placeholder="">
+                                       <input type="text" v-model="nombreProducto"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                  <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Ingeniero Agronomo</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="ingeniero"  class="form-control" placeholder="">
+                                       <input type="text" v-model="nombreIngenieroAgronomo"  class="form-control" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Concentracion</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="numeroPlantasTotales"  class="form-control" placeholder="">
+                                       <input type="text" v-model="concentracion"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Registro ICA</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="registro"  class="form-control" placeholder="">
+                                       <input type="text" v-model="RegistroICA"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Dosis</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Dosis(Gramos/cc)</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="plantasErradicadas"  class="form-control" placeholder="">
+                                       <input type="number" v-model="Dosis"  class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Forma de aplicacion</label>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Forma Aplicacion</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="tipoReproduccion"  class="form-control" placeholder="">
+                                      <select class="form-control" v-model="formaAplicacion">
+                                            <option value="Seleccione" disabled>Seleccione</option>
+                                            <option value="EDAFICA">Edafica</option>
+                                            <option value="FOLIAR">Foliar</option>
+                                      </select>  
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -167,7 +171,7 @@
                                  <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Quien aplico</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="aplico"  class="form-control" placeholder="">
+                                       <input type="text" v-model="Aplico"  class="form-control" placeholder="">
                                     </div>
                                 </div>                      
                                 <div v-show="errorPredioCultivo" class="form-group row div-error">
@@ -262,10 +266,10 @@ import vSelect from 'vue-select';
         methods: {
             listarPredioCultivo(page,buscar,criterio){
                 let me =this;
-                var url ='predio?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='fertilizante?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayPredioCultivo= respuesta.predios.data;
+                    me.arrayPredioCultivo= respuesta.fertilizantes.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -328,19 +332,18 @@ import vSelect from 'vue-select';
                 return;
             }
             let me=this;
-            axios.post('predio/registrar',{
+            axios.post('fertilizante/registrar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
-                'areaSembradaPredio':this.areaSembradaPredio, 
-                'fechaSiembra':this.fechaSiembra,
-                'numeroPlantasTotales':this.numeroPlantasTotales,
-                'numeroPlantasProduccion':this.numeroPlantasProduccion,
-                'plantasErradicadas':this.plantasErradicadas,
-                'plantasLevante':this.plantasLevante,
-                'TipoMora':this.TipoMora,
-                'vereda_id':this.vereda_id,
-                'tipoReproduccion':this.tipoReproduccion,
-                'bolsa':this.bolsa                                   
+                'fechaAplicacion':this.fechaAplicacion, 
+                'nombreProducto':this.nombreProducto,
+                'nombreIngenieroAgronomo':this.nombreIngenieroAgronomo,
+                'concentracion':this.concentracion,
+                'RegistroICA':this.RegistroICA,
+                'Dosis':this.Dosis,
+                'formaAplicacion':this.formaAplicacion,
+                'recomendo':this.recomendo,
+                'Aplico':this.Aplico                                   
             }).then(function (response) {
                     me.cerrarModal();
                     me.listarPredioCultivo(1,'','personas');
@@ -366,16 +369,14 @@ import vSelect from 'vue-select';
                         this.tituloModal='';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.areaSembradaPredio=0, 
-                        this.fechaSiembra='',
-                        this.numeroPlantasTotales=0,
-                        this.numeroPlantasProduccion=0,
-                        this.plantasErradicadas=0,
-                        this.plantasLevante=0,
-                        this.TipoMora='Seleccione',
-                        this.vereda_id=0,
-                        this.tipoReproduccion='',
-                        this.bolsa='Seleccione',                         
+                        this.nombreProducto='';
+                        this.nombreIngenieroAgronomo='';
+                        this.concentracion='';
+                        this.RegistroICA='';
+                        this.Dosis=0;
+                        this.formaAplicacion='Seleccione';
+                        this.recomendo='';
+                        this.Aplico='';                                        
                         this.errorPredioCultivo=0;
         },
             abrirModal(modelo,accion,data = []){
@@ -389,16 +390,14 @@ import vSelect from 'vue-select';
                         this.tituloModal = 'Registro Aplicacion de fertilizantes';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.areaSembradaPredio=0;
-                        this.fechaSiembra='';
-                        this.numeroPlantasTotales=0;
-                        this.numeroPlantasProduccion=0;
-                        this.plantasErradicadas=0;
-                        this.plantasLevante=0;
-                        this.TipoMora='Seleccione';
-                        this.vereda_id=0;
-                        this.tipoReproduccion='';
-                        this.bolsa='Seleccione';
+                        this.nombreProducto='';
+                        this.nombreIngenieroAgronomo='';
+                        this.concentracion='';
+                        this.RegistroICA='';
+                        this.Dosis=0;
+                        this.formaAplicacion='Seleccione';
+                        this.recomendo='';
+                        this.Aplico='';           
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
@@ -408,17 +407,16 @@ import vSelect from 'vue-select';
                         this.tipoAccion=2;
                         this.tutorado_id=data['id'];
                         this.productor_id=data['productor_id'];
+                        this.fechaAplicacion = data['fechaAplicacion'];
                         this.finca_id=data['finca_id'];
-                        this.areaSembradaPredio=data['areaSembradaPredio']; 
-                        this.fechaSiembra=data['fechaSiembra'];
-                        this.numeroPlantasTotales=data['numeroPlantasTotales'];
-                        this.numeroPlantasProduccion=data['numeroPlantasProduccion'];
-                        this.plantasErradicadas=data['plantasErradicadas'];
-                        this.plantasLevante=data['plantasLevante'];
-                        this.TipoMora=data['TipoMora'];
-                        this.vereda_id=data['vereda_id'];
-                        this.tipoReproduccion=data['tipoReproduccion'];
-                        this.bolsa=data['bolsa'];
+                        this.nombreProducto=data['nombreProducto'];
+                        this.nombreIngenieroAgronomo=data['nombreIngenieroAgronomo'];
+                        this.concentracion=data['concentracion'];
+                        this.RegistroICA=data['RegistroICA'];
+                        this.Dosis=data['Dosis'];
+                        this.formaAplicacion=data['formaAplicacion'];
+                        this.recomendo=data['recomendo'];
+                        this.Aplico=data['aplico'];           
                         break;
                     }       
                 }

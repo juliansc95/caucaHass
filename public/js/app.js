@@ -65609,6 +65609,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -65680,10 +65684,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         listarPredioCultivo: function listarPredioCultivo(page, buscar, criterio) {
             var me = this;
-            var url = 'predio?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+            var url = 'fertilizante?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayPredioCultivo = respuesta.predios.data;
+                me.arrayPredioCultivo = respuesta.fertilizantes.data;
                 me.pagination = respuesta.pagination;
             }).catch(function (error) {
                 console.log(error);
@@ -65741,19 +65745,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
             var me = this;
-            axios.post('predio/registrar', {
+            axios.post('fertilizante/registrar', {
                 'productor_id': this.productor_id,
                 'finca_id': this.finca_id,
-                'areaSembradaPredio': this.areaSembradaPredio,
-                'fechaSiembra': this.fechaSiembra,
-                'numeroPlantasTotales': this.numeroPlantasTotales,
-                'numeroPlantasProduccion': this.numeroPlantasProduccion,
-                'plantasErradicadas': this.plantasErradicadas,
-                'plantasLevante': this.plantasLevante,
-                'TipoMora': this.TipoMora,
-                'vereda_id': this.vereda_id,
-                'tipoReproduccion': this.tipoReproduccion,
-                'bolsa': this.bolsa
+                'fechaAplicacion': this.fechaAplicacion,
+                'nombreProducto': this.nombreProducto,
+                'nombreIngenieroAgronomo': this.nombreIngenieroAgronomo,
+                'concentracion': this.concentracion,
+                'RegistroICA': this.RegistroICA,
+                'Dosis': this.Dosis,
+                'formaAplicacion': this.formaAplicacion,
+                'recomendo': this.recomendo,
+                'Aplico': this.Aplico
             }).then(function (response) {
                 me.cerrarModal();
                 me.listarPredioCultivo(1, '', 'personas');
@@ -65777,7 +65780,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.tituloModal = '';
             this.productor_id = 0;
             this.finca_id = 0;
-            this.areaSembradaPredio = 0, this.fechaSiembra = '', this.numeroPlantasTotales = 0, this.numeroPlantasProduccion = 0, this.plantasErradicadas = 0, this.plantasLevante = 0, this.TipoMora = 'Seleccione', this.vereda_id = 0, this.tipoReproduccion = '', this.bolsa = 'Seleccione', this.errorPredioCultivo = 0;
+            this.nombreProducto = '';
+            this.nombreIngenieroAgronomo = '';
+            this.concentracion = '';
+            this.RegistroICA = '';
+            this.Dosis = 0;
+            this.formaAplicacion = 'Seleccione';
+            this.recomendo = '';
+            this.Aplico = '';
+            this.errorPredioCultivo = 0;
         },
         abrirModal: function abrirModal(modelo, accion) {
             var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -65792,16 +65803,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.tituloModal = 'Registro Aplicacion de fertilizantes';
                                     this.productor_id = 0;
                                     this.finca_id = 0;
-                                    this.areaSembradaPredio = 0;
-                                    this.fechaSiembra = '';
-                                    this.numeroPlantasTotales = 0;
-                                    this.numeroPlantasProduccion = 0;
-                                    this.plantasErradicadas = 0;
-                                    this.plantasLevante = 0;
-                                    this.TipoMora = 'Seleccione';
-                                    this.vereda_id = 0;
-                                    this.tipoReproduccion = '';
-                                    this.bolsa = 'Seleccione';
+                                    this.nombreProducto = '';
+                                    this.nombreIngenieroAgronomo = '';
+                                    this.concentracion = '';
+                                    this.RegistroICA = '';
+                                    this.Dosis = 0;
+                                    this.formaAplicacion = 'Seleccione';
+                                    this.recomendo = '';
+                                    this.Aplico = '';
                                     this.tipoAccion = 1;
                                     break;
                                 }case 'actualizar':
@@ -65811,17 +65820,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.tipoAccion = 2;
                                     this.tutorado_id = data['id'];
                                     this.productor_id = data['productor_id'];
+                                    this.fechaAplicacion = data['fechaAplicacion'];
                                     this.finca_id = data['finca_id'];
-                                    this.areaSembradaPredio = data['areaSembradaPredio'];
-                                    this.fechaSiembra = data['fechaSiembra'];
-                                    this.numeroPlantasTotales = data['numeroPlantasTotales'];
-                                    this.numeroPlantasProduccion = data['numeroPlantasProduccion'];
-                                    this.plantasErradicadas = data['plantasErradicadas'];
-                                    this.plantasLevante = data['plantasLevante'];
-                                    this.TipoMora = data['TipoMora'];
-                                    this.vereda_id = data['vereda_id'];
-                                    this.tipoReproduccion = data['tipoReproduccion'];
-                                    this.bolsa = data['bolsa'];
+                                    this.nombreProducto = data['nombreProducto'];
+                                    this.nombreIngenieroAgronomo = data['nombreIngenieroAgronomo'];
+                                    this.concentracion = data['concentracion'];
+                                    this.RegistroICA = data['RegistroICA'];
+                                    this.Dosis = data['Dosis'];
+                                    this.formaAplicacion = data['formaAplicacion'];
+                                    this.recomendo = data['recomendo'];
+                                    this.Aplico = data['aplico'];
                                     break;
                                 }
                         }
@@ -66048,7 +66056,9 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(predio.nombre) }
+                        domProps: {
+                          textContent: _vm._s(predio.nombre_productor)
+                        }
                       }),
                       _vm._v(" "),
                       _c("td", {
@@ -66056,7 +66066,9 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(predio.fechaSiembra) }
+                        domProps: {
+                          textContent: _vm._s(predio.fechaAplicacion)
+                        }
                       })
                     ])
                   }),
@@ -66349,7 +66361,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Fecha de Siembra")]
+                        [_vm._v("Fecha de Aplicacion")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -66359,11 +66371,11 @@ var render = function() {
                           _c("v-datepicker", {
                             attrs: { inline: true },
                             model: {
-                              value: _vm.fechaSiembra,
+                              value: _vm.fechaAplicacion,
                               callback: function($$v) {
-                                _vm.fechaSiembra = $$v
+                                _vm.fechaAplicacion = $$v
                               },
-                              expression: "fechaSiembra "
+                              expression: "fechaAplicacion "
                             }
                           })
                         ],
@@ -66387,19 +66399,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.propietario,
-                              expression: "propietario"
+                              value: _vm.nombreProducto,
+                              expression: "nombreProducto"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.propietario },
+                          domProps: { value: _vm.nombreProducto },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.propietario = $event.target.value
+                              _vm.nombreProducto = $event.target.value
                             }
                           }
                         })
@@ -66422,19 +66434,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.ingeniero,
-                              expression: "ingeniero"
+                              value: _vm.nombreIngenieroAgronomo,
+                              expression: "nombreIngenieroAgronomo"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.ingeniero },
+                          domProps: { value: _vm.nombreIngenieroAgronomo },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.ingeniero = $event.target.value
+                              _vm.nombreIngenieroAgronomo = $event.target.value
                             }
                           }
                         })
@@ -66457,19 +66469,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.numeroPlantasTotales,
-                              expression: "numeroPlantasTotales"
+                              value: _vm.concentracion,
+                              expression: "concentracion"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "number", placeholder: "" },
-                          domProps: { value: _vm.numeroPlantasTotales },
+                          attrs: { type: "text", placeholder: "" },
+                          domProps: { value: _vm.concentracion },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.numeroPlantasTotales = $event.target.value
+                              _vm.concentracion = $event.target.value
                             }
                           }
                         })
@@ -66492,19 +66504,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.registro,
-                              expression: "registro"
+                              value: _vm.RegistroICA,
+                              expression: "RegistroICA"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.registro },
+                          domProps: { value: _vm.RegistroICA },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.registro = $event.target.value
+                              _vm.RegistroICA = $event.target.value
                             }
                           }
                         })
@@ -66518,7 +66530,7 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Dosis")]
+                        [_vm._v("Dosis(Gramos/cc)")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
@@ -66527,19 +66539,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.plantasErradicadas,
-                              expression: "plantasErradicadas"
+                              value: _vm.Dosis,
+                              expression: "Dosis"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "number", placeholder: "" },
-                          domProps: { value: _vm.plantasErradicadas },
+                          domProps: { value: _vm.Dosis },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.plantasErradicadas = $event.target.value
+                              _vm.Dosis = $event.target.value
                             }
                           }
                         })
@@ -66553,31 +66565,54 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Forma de aplicacion")]
+                        [_vm._v("Forma Aplicacion")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.tipoReproduccion,
-                              expression: "tipoReproduccion"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.tipoReproduccion },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formaAplicacion,
+                                expression: "formaAplicacion"
                               }
-                              _vm.tipoReproduccion = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.formaAplicacion = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        })
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "Seleccione", disabled: "" } },
+                              [_vm._v("Seleccione")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "EDAFICA" } }, [
+                              _vm._v("Edafica")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "FOLIAR" } }, [
+                              _vm._v("Foliar")
+                            ])
+                          ]
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -66632,19 +66667,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.aplico,
-                              expression: "aplico"
+                              value: _vm.Aplico,
+                              expression: "Aplico"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.aplico },
+                          domProps: { value: _vm.Aplico },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.aplico = $event.target.value
+                              _vm.Aplico = $event.target.value
                             }
                           }
                         })

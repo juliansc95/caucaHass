@@ -252,6 +252,11 @@ Route::group(['middleware'=>['auth']],function(){
      Route::post('/productor/registrar','ProductorController@store');
      Route::put('/productor/actualizar','ProductorController@update');
      
+     //Rutas fertilizantes
+     Route::get('/fertilizante','FertilizanteController@index');
+     Route::post('/fertilizante/registrar','FertilizanteController@store');
+
+
      
      //Rutas roles
      Route::get('/rol','RolController@index');
