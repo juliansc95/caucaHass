@@ -48,7 +48,7 @@
             </template>
 
             <template v-if="menu==10">
-               <poda></poda>
+               <aplicacionq></aplicacionq>
             </template>
             
           

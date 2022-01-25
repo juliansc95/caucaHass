@@ -8,7 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Aplicacion de fertilizantes
+                        <i class="fa fa-align-justify"></i> Aplicacion de productos quimicos
                         <button type="button" @click="abrirModal('predio','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -50,7 +50,7 @@
                                     <th>Detalle</th>
                                     <th>Productor</th>
                                     <th>Finca</th>
-                                    <th>Fecha Aplicacion</th>
+                                    <th>Fecha Siembra</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -122,9 +122,12 @@
                                     </div>
                                 </div>
                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Nombre comercial del producto</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Nombre Producto quimico</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="nombreProducto"  class="form-control" placeholder="">
+                                      <select class="form-control" v-model="quimico_id">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="quimico in arrayQuimico" :key="quimico.id" :value="quimico.id" v-text="quimico.nombre" ></option>
+                                      </select>  
                                     </div>
                                 </div>
                                  <div class="form-group row">
@@ -153,12 +156,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo carencia</label>
+                                    <div class="col-md-9">
+                                       <input type="number" v-model="periodoCarencia"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo carencia</label>
+                                    <div class="col-md-9">
+                                       <input type="number" v-model="periodoEntrada"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Forma Aplicacion</label>
                                     <div class="col-md-9">
                                       <select class="form-control" v-model="formaAplicacion">
                                             <option value="Seleccione" disabled>Seleccione</option>
-                                            <option value="EDAFICA">Edafica</option>
-                                            <option value="FOLIAR">Foliar</option>
+                                            <option value="BOMBA DE ESPADA">BOMBA DE ESPADA</option>
+                                            <option value="BOMBA DE MOTOR">BOMBA DE MOTOR</option>
                                       </select>  
                                     </div>
                                 </div>
@@ -235,6 +250,7 @@ import vSelect from 'vue-select';
                 buscar: '',
                 arrayProductor : [],
                 arrayFinca : [],
+                arrayQuimico:[],
                 arrayVereda:[]                  
             }
         },
@@ -266,10 +282,10 @@ import vSelect from 'vue-select';
         methods: {
             listarPredioCultivo(page,buscar,criterio){
                 let me =this;
-                var url ='fertilizante?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='aplicacionQ?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayPredioCultivo= respuesta.fertilizantes.data;
+                    me.arrayPredioCultivo= respuesta.quimicos.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -293,6 +309,17 @@ import vSelect from 'vue-select';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayProductor= respuesta.personas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+             selectQuimico(){
+                let me =this;
+                var url ='quimicos/selectQuimico';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayQuimico= respuesta.quimicos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -332,15 +359,17 @@ import vSelect from 'vue-select';
                 return;
             }
             let me=this;
-            axios.post('fertilizante/registrar',{
+            axios.post('aplicacionQ/registrar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
                 'fechaAplicacion':this.fechaAplicacion, 
-                'nombreProducto':this.nombreProducto,
+                'quimico_id':this.quimico_id,
                 'nombreIngenieroAgronomo':this.nombreIngenieroAgronomo,
                 'concentracion':this.concentracion,
                 'RegistroICA':this.RegistroICA,
                 'Dosis':this.Dosis,
+                'periodoCarencia':this.periodoCarencia,
+                'periodoEntrada':this.periodoEntrada,
                 'formaAplicacion':this.formaAplicacion,
                 'recomendo':this.recomendo,
                 'Aplico':this.Aplico                                   
@@ -423,6 +452,7 @@ import vSelect from 'vue-select';
                 }
             }
             this.selectProductor();
+            this.selectQuimico();
             this.selectFinca(this.productor_id);
             this.selectVereda();   
         }

@@ -8,7 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Producto Fitosanitario
+                        <i class="fa fa-align-justify"></i> Productos Quimicos
                         <button type="button" @click="abrirModal('productoFitosanitario','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -172,10 +172,10 @@
         methods: {
             listarProductoFitosanitario(page,buscar,criterio){
                 let me =this;
-                var url ='fitosanitario?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='quimicos?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayProductoFitosanitario= respuesta.productoFitosanitarios.data;
+                    me.arrayProductoFitosanitario= respuesta.quimicos.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -205,7 +205,7 @@
                 return;
             }
             let me=this;
-            axios.post('fitosanitario/registrar',{
+            axios.post('quimicos/registrar',{
                 'nombre':this.nombre,                              
             }).then(function (response) {
                     me.cerrarModal();
