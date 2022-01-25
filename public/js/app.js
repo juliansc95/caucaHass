@@ -52600,20 +52600,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52629,7 +52615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             altitudPredio: 0,
             departamento_id: 0,
             municipio_id: 0,
-            vereda_id: 0,
+            vereda: '',
             resguardo_id: 0,
             distanciaAlLote: 0,
             distanciaLoteVia: 0,
@@ -52793,15 +52779,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('finca/registrar', {
                 'nombre': this.nombre,
                 'productor_id': this.productor_id,
-                'linea_id': this.linea_id,
                 'areaPredio': this.areaPredio,
                 'longitudPredio': this.longitudPredio,
                 'latitudPredio': this.latitudPredio,
                 'altitudPredio': this.altitudPredio,
                 'departamento_id': this.departamento_id,
                 'municipio_id': this.municipio_id,
-                'vereda_id': this.vereda_id,
-                'resguardo_id': this.resguardo_id,
+                'vereda': this.vereda,
                 'posesion_id': this.posesion_id,
                 'distanciaAlLote': this.distanciaAlLote,
                 'distanciaLoteVia': this.distanciaLoteVia,
@@ -52827,15 +52811,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'id': this.finca_id,
                 'nombre': this.nombre,
                 'productor_id': this.productor_id,
-                'linea_id': this.linea_id,
                 'areaPredio': this.areaPredio,
                 'longitudPredio': this.longitudPredio,
                 'latitudPredio': this.latitudPredio,
                 'altitudPredio': this.altitudPredio,
                 'departamento_id': this.departamento_id,
                 'municipio_id': this.municipio_id,
-                'vereda_id': this.vereda_id,
-                'resguardo_id': this.resguardo_id,
+                'vereda': this.vereda,
                 'posesion_id': this.posesion_id,
                 'distanciaAlLote': this.distanciaAlLote,
                 'distanciaLoteVia': this.distanciaLoteVia,
@@ -52855,12 +52837,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (!this.nombre) this.errorMostrarMsjFinca.push("El nombre de la finca no puede estar vacío ");
             if (this.productor_id == 0) this.errorMostrarMsjFinca.push("Debe seleccionar un productor.");
-            if (this.linea_id == 0) this.errorMostrarMsjFinca.push("Seleccione una opcion de linea.");
             if (this.posesion_id == 0) this.errorMostrarMsjFinca.push("Seleccione una forma de adquisicion valida.");
             if (this.departamento_id == 0) this.errorMostrarMsjFinca.push("Seleccione un departamento.");
             if (this.municipio_id == 0) this.errorMostrarMsjFinca.push("Seleccione un municipio.");
-            if (this.vereda_id == 0) this.errorMostrarMsjFinca.push("Seleccione una vereda.");
-            if (this.resguardo_id == 0) this.errorMostrarMsjFinca.push("Seleccione un resguardo.");
 
             if (this.errorMostrarMsjFinca.length) this.errorFinca = 1;
 
@@ -52891,7 +52870,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.altitudPredio = 0;
                                     this.departamento_id = 0;
                                     this.municipio_id = 0;
-                                    this.vereda_id = 0;
+                                    this.vereda = '';
                                     this.resguardo_id = 0;
                                     this.posesion_id = 0;
                                     this.distanciaAlLote = 0;
@@ -52908,15 +52887,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     this.finca_id = data['id'];
                                     this.nombre = data['nombre'];
                                     this.productor_id = data['productor_id'];
-                                    this.linea_id = data['linea_id'];
                                     this.areaPredio = data['areaPredio'];
                                     this.longitudPredio = data['longitudPredio'];
                                     this.latitudPredio = data['latitudPredio'];
                                     this.altitudPredio = data['altitudPredio'];
                                     this.departamento_id = data['departamento_id'];
                                     this.municipio_id = data['municipio_id'];
-                                    this.vereda_id = data['vereda_id'];
-                                    this.resguardo_id = data['resguardo_id'];
+                                    this.vereda = data['vereda'];
                                     this.posesion_id = data['posesion_id'];
                                     this.distanciaAlLote = data['distanciaAlLote'];
                                     this.distanciaLoteVia = data['distanciaLoteVia'];
@@ -53177,7 +53154,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("td", {
-                        domProps: { textContent: _vm._s(finca.nombre_vereda) }
+                        domProps: { textContent: _vm._s(finca.vereda) }
                       })
                     ])
                   }),
@@ -53422,67 +53399,6 @@ var render = function() {
                                 domProps: {
                                   value: productor_id.id,
                                   textContent: _vm._s(productor_id.nombre)
-                                }
-                              })
-                            })
-                          ],
-                          2
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Linea")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.linea_id,
-                                expression: "linea_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.linea_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Seleccione")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayLinea, function(linea_id) {
-                              return _c("option", {
-                                key: linea_id.id,
-                                domProps: {
-                                  value: linea_id.id,
-                                  textContent: _vm._s(linea_id.nombre)
                                 }
                               })
                             })
@@ -53767,53 +53683,27 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.vereda_id,
-                                expression: "vereda_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.vereda_id = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.vereda,
+                              expression: "vereda"
                             }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "0", disabled: "" } },
-                              [_vm._v("Seleccione")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.arrayVereda, function(vereda) {
-                              return _c("option", {
-                                key: vereda.id,
-                                domProps: {
-                                  value: vereda.id,
-                                  textContent: _vm._s(vereda.nombre)
-                                }
-                              })
-                            })
                           ],
-                          2
-                        )
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Vereda" },
+                          domProps: { value: _vm.vereda },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.vereda = $event.target.value
+                            }
+                          }
+                        })
                       ])
                     ]),
                     _vm._v(" "),

@@ -74,7 +74,7 @@
                                     <td v-text="finca.latitudPredio"></td>
                                     <td v-text="finca.longitudPredio"></td>
                                     <td v-text="finca.altitudPredio"></td>
-                                    <td v-text="finca.nombre_vereda"></td>
+                                    <td v-text="finca.vereda"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -122,17 +122,7 @@
                                             <option v-for="productor_id in arrayProductor" :key="productor_id.id" :value="productor_id.id" v-text="productor_id.nombre" ></option>
                                       </select>  
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Linea</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="linea_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="linea_id in arrayLinea" :key="linea_id.id" :value="linea_id.id" v-text="linea_id.nombre" ></option>
-                                      </select>  
-                                    </div>
-                                </div>                               
-
+                                </div>                     
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="number-input">Area predio</label>
                                     <div class="col-md-9">
@@ -178,13 +168,9 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Vereda</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="vereda_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="vereda in arrayVereda" :key="vereda.id" :value="vereda.id" v-text="vereda.nombre" ></option>
-                                      </select>  
+                                        <input type="text" v-model="vereda"  class="form-control" placeholder="Vereda">
                                     </div>
                                 </div>
-                               
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Forma adquisicion predio</label>
                                     <div class="col-md-9">
@@ -250,7 +236,7 @@
                 altitudPredio :0,
                 departamento_id :0,
                 municipio_id:0,
-                vereda_id:0,
+                vereda:'',
                 resguardo_id:0,
                 distanciaAlLote:0,
                 distanciaLoteVia:0,
@@ -422,15 +408,13 @@
             axios.post('finca/registrar',{
                 'nombre':this.nombre,
                 'productor_id':this.productor_id,
-                'linea_id':this.linea_id,
                 'areaPredio':this.areaPredio,
                 'longitudPredio':this.longitudPredio,
                 'latitudPredio':this.latitudPredio,
                 'altitudPredio':this.altitudPredio,
                 'departamento_id':this.departamento_id,
                 'municipio_id':this.municipio_id,
-                'vereda_id':this.vereda_id,
-                'resguardo_id':this.resguardo_id,
+                'vereda':this.vereda,
                 'posesion_id':this.posesion_id,
                 'distanciaAlLote':this.distanciaAlLote,
                 'distanciaLoteVia':this.distanciaLoteVia,
@@ -458,15 +442,13 @@
                 'id':this.finca_id,
                 'nombre':this.nombre,
                 'productor_id':this.productor_id,
-                'linea_id':this.linea_id,
                 'areaPredio':this.areaPredio,
                 'longitudPredio':this.longitudPredio,
                 'latitudPredio':this.latitudPredio,
                 'altitudPredio':this.altitudPredio,
                 'departamento_id':this.departamento_id,
                 'municipio_id':this.municipio_id,
-                'vereda_id':this.vereda_id,
-                'resguardo_id':this.resguardo_id,
+                'vereda':this.vereda,
                 'posesion_id':this.posesion_id,
                 'distanciaAlLote':this.distanciaAlLote,
                 'distanciaLoteVia':this.distanciaLoteVia,
@@ -487,12 +469,9 @@
 
             if(!this.nombre) this.errorMostrarMsjFinca.push("El nombre de la finca no puede estar vacío ");
             if(this.productor_id==0)this.errorMostrarMsjFinca.push("Debe seleccionar un productor.");
-            if(this.linea_id==0)this.errorMostrarMsjFinca.push("Seleccione una opcion de linea.");
             if(this.posesion_id==0)this.errorMostrarMsjFinca.push("Seleccione una forma de adquisicion valida.");
             if(this.departamento_id==0)this.errorMostrarMsjFinca.push("Seleccione un departamento.");
             if(this.municipio_id==0)this.errorMostrarMsjFinca.push("Seleccione un municipio.");
-            if(this.vereda_id==0)this.errorMostrarMsjFinca.push("Seleccione una vereda.");
-            if(this.resguardo_id==0)this.errorMostrarMsjFinca.push("Seleccione un resguardo.");
 
             if(this.errorMostrarMsjFinca.length) this.errorFinca=1;
 
@@ -536,7 +515,7 @@
                         this.altitudPredio=0;
                         this.departamento_id=0;
                         this.municipio_id=0;
-                        this.vereda_id=0;                        
+                        this.vereda='';                        
                         this.resguardo_id=0;
                         this.posesion_id=0;
                         this.distanciaAlLote=0;
@@ -553,15 +532,13 @@
                         this.finca_id=data['id'];
                         this.nombre = data['nombre'];
                         this.productor_id=data['productor_id'];
-                        this.linea_id=data['linea_id'];
                         this.areaPredio=data['areaPredio'];
                         this.longitudPredio=data['longitudPredio'];
                         this.latitudPredio=data['latitudPredio'];
                         this.altitudPredio=data['altitudPredio'];
                         this.departamento_id=data['departamento_id'];
                         this.municipio_id=data['municipio_id'];
-                        this.vereda_id=data['vereda_id'];
-                        this.resguardo_id=data['resguardo_id'];
+                        this.vereda=data['vereda'];
                         this.posesion_id=data['posesion_id'];
                         this.distanciaAlLote=data['distanciaAlLote'];
                         this.distanciaLoteVia=data['distanciaLoteVia'];
