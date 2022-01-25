@@ -8,8 +8,8 @@ class Productor extends Model
 {
     protected $table = 'productors';
     protected $fillable = ['fechaExpedicion',
-    'fechaNacimiento','sexo_id','etnia_id','escolaridad_id','departamento_id',
-    'municipio_id','vereda_id','resguardo_id','fechaIngreso','fotocopiaCedula']; 
+    'fechaNacimiento','sexo_id','departamento_id',
+    'municipio_id','vereda','fechaIngreso']; 
 
     public $timestamps=false;
 
@@ -35,12 +35,7 @@ class Productor extends Model
     {
         return $this->belongsTo('App\Municipio', 'municipio_id', 'id');
     }
-    public function vereda(){
-        return $this->belongsTo('App\Vereda', 'vereda_id', 'id');
-    }
-    public function resguardo(){
-        return $this->belongsTo('App\Resguardo', 'resguardo_id', 'id');
-    }
+    
 
     
  

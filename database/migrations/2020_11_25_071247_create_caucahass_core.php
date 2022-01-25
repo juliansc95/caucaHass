@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsofrutCore extends Migration
+class CreateCaucahassCore extends Migration
 {
     /**
      * Run the migrations.
@@ -108,6 +108,13 @@ class CreateAsofrutCore extends Migration
             $table->timestamps();
         });
 
+        echo "Creando tabla de productos comerciales quimicos".__LINE__."\n";
+        Schema::create('quimicos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->unique();
+            $table->timestamps();
+        });
+
         echo "Creando tabla personas ".__LINE__."\n";
         Schema::create('personas', function (Blueprint $table) {
             $table->increments('id');
@@ -130,25 +137,17 @@ class CreateAsofrutCore extends Migration
             $table->date('fechaExpedicion');
             $table->date('fechaNacimiento');
             $table->unsignedInteger('sexo_id');
-            $table->unsignedInteger('etnia_id');
-            $table->unsignedInteger('escolaridad_id');
             $table->unsignedInteger('departamento_id');
             $table->unsignedInteger('municipio_id');
-            $table->unsignedInteger('vereda_id');
-            $table->unsignedInteger('resguardo_id');
+            $table->string('vereda');
             $table->date('fechaIngreso');
-            $table->string('fotocopiaCedula')->nullable();             
             $table->foreign('id')->references('id')->on('personas')->onDelete('cascade');
         });
 
         Schema::table('productors', function (Blueprint $table) {
             $table->foreign('sexo_id')->references('id')->on('sexos');
-            $table->foreign('etnia_id')->references('id')->on('etnias');
-            $table->foreign('escolaridad_id')->references('id')->on('gradoEscolaridads');
             $table->foreign('departamento_id')->references('id')->on('departamentos');
             $table->foreign('municipio_id')->references('id')->on('municipios');
-            $table->foreign('vereda_id')->references('id')->on('veredas');
-            $table->foreign('resguardo_id')->references('id')->on('resguardos');
         });
 
         echo "Creando tabla de fincas ".__LINE__."\n";
@@ -156,15 +155,13 @@ class CreateAsofrutCore extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->unsignedInteger('productor_id');
-            $table->unsignedInteger('linea_id');
             $table->decimal('areaPredio', 11, 2);
             $table->decimal('longitudPredio', 11, 6);
             $table->decimal('latitudPredio', 11, 6);
             $table->decimal('altitudPredio', 11, 2);
             $table->unsignedInteger('departamento_id');
             $table->unsignedInteger('municipio_id');
-            $table->unsignedInteger('vereda_id');
-            $table->unsignedInteger('resguardo_id');
+            $table->string('vereda');
             $table->unsignedInteger('posesion_id');
             $table->decimal('distanciaAlLote', 11, 2);
             $table->decimal('distanciaLoteVia', 11, 2);
@@ -174,100 +171,62 @@ class CreateAsofrutCore extends Migration
 
         Schema::table('fincas', function (Blueprint $table) {
             $table->foreign('productor_id')->references('id')->on('productors');
-            $table->foreign('linea_id')->references('id')->on('lineas');
             $table->foreign('departamento_id')->references('id')->on('departamentos');
             $table->foreign('municipio_id')->references('id')->on('municipios');
-            $table->foreign('vereda_id')->references('id')->on('veredas');
-            $table->foreign('resguardo_id')->references('id')->on('resguardos');
             $table->foreign('posesion_id')->references('id')->on('posesions');
         });
 
-        echo "Creando tabla de cultivos ".__LINE__."\n";
-        Schema::create('cultivos', function (Blueprint $table) {
+        echo "Creando tabla de aplicacion fertilizantes ".__LINE__."\n";
+        Schema::create('fertilizantes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('productor_id');
             $table->unsignedInteger('finca_id');
-            $table->unsignedInteger('cadena_id');
-            $table->decimal('areaSembrada', 11, 2);
-            $table->date('fechaSiembra');
-            $table->integer('numeroPlantulasArboles');
-            $table->decimal('totalVentasKgAnioAnterior', 11, 2);
-            $table->decimal('precioPromedio', 11, 2);
-            $table->decimal('TotalVentasAnioAnterior', 11, 2);
-            $table->unsignedInteger('lugarVenta_id');                 
+            $table->date('fechaAplicacion');
+            $table->string('nombreProducto');
+            $table->string('nombreIngenieroAgronomo');
+            $table->string('concentracion');
+            $table->string('RegistroICA');
+            $table->integer('Dosis');
+            $table->string('formaAplicacion');
+            $table->string('recomendo');
+            $table->string('Aplico');            
             $table->timestamps();
         });
 
-        Schema::table('cultivos', function (Blueprint $table) {
+        Schema::table('fertilizantes', function (Blueprint $table) {
             $table->foreign('productor_id')->references('id')->on('productors');
             $table->foreign('finca_id')->references('id')->on('fincas');
-            $table->foreign('cadena_id')->references('id')->on('cadenas');
-            $table->foreign('lugarVenta_id')->references('id')->on('lugarVentas');
         });
 
-        echo "Creando tabla de  categorias de mora".__LINE__."\n";
-        Schema::create('categoriaMoras', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre')->unique();
-            $table->decimal('valorUnitario', 11, 0);
-            $table->decimal('ValorDonacion', 11, 0);
-            $table->decimal('valorTransporte', 11, 0);
-            $table->decimal('valorAsohof', 11, 2);
-            $table->decimal('valorCuatroPorMil', 11, 4);
-            $table->timestamps();
-        });
-
-        Schema::create('estadoVentas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre')->unique;            
-            $table->timestamps();
-        });
-
-        echo "Creando tabla de ventas ".__LINE__."\n";
-        Schema::create('ventas', function (Blueprint $table) {
+        echo "Creando tabla de aplicacion quimicos ".__LINE__."\n";
+        Schema::create('aplquimicos', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('productor_id');
-            $table->unsignedInteger('linea_id');
-            $table->date('fechaVenta');
-            $table->unsignedInteger('lugarVenta_id');
-            $table->decimal('totalVenta', 11, 2);
-            $table->decimal('totalKilos', 11, 2);
-            $table->unsignedInteger('estado_id');                                 
+            $table->unsignedInteger('finca_id');
+            $table->date('fechaAplicacion');
+            $table->unsignedInteger('quimico_id');
+            $table->string('nombreIngenieroAgronomo');
+            $table->string('concentracion');
+            $table->string('RegistroICA');
+            $table->integer('Dosis');
+            $table->integer('periodoCarencia');
+            $table->integer('periodoEntrada');
+            $table->string('formaAplicacion');
+            $table->string('recomendo');
+            $table->string('Aplico');            
             $table->timestamps();
         });
 
-        
-
-        Schema::table('ventas', function (Blueprint $table) {
+        Schema::table('aplquimicos', function (Blueprint $table) {
             $table->foreign('productor_id')->references('id')->on('productors');
-            $table->foreign('linea_id')->references('id')->on('lineas');
-            $table->foreign('lugarVenta_id')->references('id')->on('lugarVentas');
-            $table->foreign('estado_id')->references('id')->on('estadoVentas');
+            $table->foreign('finca_id')->references('id')->on('fincas');
+            $table->foreign('quimico_id')->references('id')->on('quimicos');
         });
 
-        echo "Creando tabla de ventas_categorias ".__LINE__."\n";
-        Schema::create('ventas_categorias', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('ventas_id');
-            $table->unsignedInteger('categoria_id');
-            $table->decimal('peso', 11, 2);
-            $table->decimal('valorUnitario', 11, 2);
-            $table->decimal('subtotal', 11, 2);
-            $table->decimal('donacion', 11, 2);
-            $table->decimal('transporte', 11, 2);
-            $table->decimal('asohof', 11, 2);
-            $table->decimal('cuatroXmil', 11, 2);
-            $table->text('otro')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::table('ventas_categorias', function (Blueprint $table) {
-            $table->foreign('ventas_id')->references('id')->on('ventas');
-            $table->foreign('categoria_id')->references('id')->on('categoriaMoras');
-        });    
-
+       
       
     }
+
 
     /**
      * Reverse the migrations.
@@ -276,10 +235,8 @@ class CreateAsofrutCore extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas_categorias');
-        Schema::dropIfExists('ventas');
-        Schema::dropIfExists('categoriaMoras');
-        Schema::dropIfExists('cultivos');
+        Schema::dropIfExists('fertilizantes');
+        Schema::dropIfExists('aplquimicos');
         Schema::dropIfExists('fincas');
         Schema::dropIfExists('productors');
         Schema::dropIfExists('personas');
@@ -295,5 +252,6 @@ class CreateAsofrutCore extends Migration
         Schema::dropIfExists('sexos');
         Schema::dropIfExists('tipoIds');
         Schema::dropIfExists('estadoVentas');
+        Schema::dropIfExists('quimicos');
     }
 }

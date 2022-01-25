@@ -56,11 +56,9 @@
                                     <th>Numero documento</th>
                                     <th>Fecha nacimiento</th>
                                     <th>Sexo</th>
-                                    <th>Grado escolaridad</th>
                                     <th>Telefono</th>
                                     <th>Correo electronico</th>
                                     <th>Vereda</th>
-                                    <th>Resguardo</th>
                                     <th>Fecha de Ingreso</th>
                                 </tr>
                             </thead>
@@ -76,11 +74,9 @@
                                     <td v-text="persona.num_documento"></td>
                                     <td v-text="persona.fechaNacimiento"></td>
                                     <td v-text="persona.nombre_sexo"></td>
-                                    <td v-text="persona.nombre_escolaridad"></td>
                                     <td v-text="persona.telefono"></td>
                                     <td v-text="persona.email"></td>
-                                    <td v-text="persona.nombre_vereda"></td>
-                                    <td v-text="persona.nombre_resguardo"></td>
+                                    <td v-text="persona.vereda"></td>
                                     <td v-text="persona.fechaIngreso"></td>
                                 </tr>
                             </tbody>
@@ -159,24 +155,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Etnia</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="etnia_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="etnia in arrayEtnia" :key="etnia.id" :value="etnia.id" v-text="etnia.nombre" ></option>
-                                      </select>  
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Grado Escolaridad</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="escolaridad_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="escolaridad in arrayEscolaridad" :key="escolaridad.id" :value="escolaridad.id" v-text="escolaridad.nombre" ></option>
-                                      </select>  
-                                    </div>
-                                </div>    
-                                <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="number-input">Telefono</label>
                                     <div class="col-md-9">
                                         <input type="number" v-model="telefono"  class="form-control" placeholder="">
@@ -206,22 +184,10 @@
                                       </select>  
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                               <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Vereda</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="vereda_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="vereda in arrayVereda" :key="vereda.id" :value="vereda.id" v-text="vereda.nombre" ></option>
-                                      </select>  
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Resguardo</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="resguardo_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="resguardo in arrayResguardo" :key="resguardo.id" :value="resguardo.id" v-text="resguardo.nombre" ></option>
-                                      </select>  
+                                        <input type="text" v-model="vereda"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -235,13 +201,7 @@
                                     <div class="col-md-9">
                                          <v-datepicker :inline="true" v-model="fechaIngreso"></v-datepicker>
                                     </div>
-                                </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Observaciones</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="fotocopiaCedula"   class="form-control" placeholder="" >
-                                    </div>
-                                </div>                                  
+                                </div>                           
                                 <div v-show="errorProductor" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjProductor" :key="error" v-text="error">
@@ -284,7 +244,7 @@ import Datepicker from 'vuejs-datepicker';
                 escolaridad_id:0,
                 departamento_id:0,
                 municipio_id:0,
-                vereda_id:0,
+                vereda:'',
                 resguardo_id:0,
                 fechaIngreso:'',
                 fotocopiaCedula:'',   
@@ -472,17 +432,13 @@ import Datepicker from 'vuejs-datepicker';
                 'fechaExpedicion':this.fechaExpedicion,
                 'fechaNacimiento':this.fechaNacimiento,
                 'sexo_id':this.sexo_id,
-                'etnia_id':this.etnia_id,
-                'escolaridad_id':this.escolaridad_id,
                 'telefono':this.telefono,
                 'email':this.email, 
                 'departamento_id':this.departamento_id,
                 'municipio_id':this.municipio_id,
-                'vereda_id':this.vereda_id,
-                'resguardo_id':this.resguardo_id,
+                'vereda':this.vereda,
                 'direccion':this.direccion,
                 'fechaIngreso':this.fechaIngreso,
-                'fotocopiaCedula':this.fotocopiaCedula,
             }).then(function (response) {
                     console.log(response);
                     me.cerrarModal();
@@ -509,14 +465,11 @@ import Datepicker from 'vuejs-datepicker';
                 'fechaExpedicion':this.fechaExpedicion,
                 'fechaNacimiento':this.fechaNacimiento,
                 'sexo_id':this.sexo_id,
-                'etnia_id':this.etnia_id,
-                'escolaridad_id':this.escolaridad_id,
                 'telefono':this.telefono,
                 'email':this.email, 
                 'departamento_id':this.departamento_id,
                 'municipio_id':this.municipio_id,
-                'vereda_id':this.vereda_id,
-                'resguardo_id':this.resguardo_id,
+                'vereda':this.vereda,
                 'direccion':this.direccion,
                 'fechaIngreso':this.fechaIngreso,
                 'fotocopiaCedula':this.fotocopiaCedula,
@@ -537,14 +490,10 @@ import Datepicker from 'vuejs-datepicker';
             if(this.tipo_id==0)this.errorMostrarMsjProductor.push("Seleccione un tipo de documento.");
             if(!this.num_documento) this.errorMostrarMsjProductor.push("Ingrese un numero de documento valido");
             if(this.sexo_id==0)this.errorMostrarMsjProductor.push("Seleccione una opcion de sexo.");
-            if(this.etnia_id==0)this.errorMostrarMsjProductor.push("Seleccione una etnia valida.");
-            if(this.escolaridad_id==0)this.errorMostrarMsjProductor.push("Seleccione un nivel de escolaridad.");
             if(!this.telefono) this.errorMostrarMsjProductor.push("Ingrese un numero de telefono valido sin lineas ni puntos");
             if(!this.email) this.errorMostrarMsjProductor.push("Ingrese un correo electronico valido");
             if(this.departamento_id==0)this.errorMostrarMsjProductor.push("Seleccione un departamento.");
             if(this.municipio_id==0)this.errorMostrarMsjProductor.push("Seleccione un municipio.");
-            if(this.vereda_id==0)this.errorMostrarMsjProductor.push("Seleccione una vereda.");
-            if(this.resguardo_id==0)this.errorMostrarMsjProductor.push("Seleccione un resguardo.");
 
             if(this.errorMostrarMsjProductor.length) this.errorProductor=1;
 
@@ -587,17 +536,12 @@ import Datepicker from 'vuejs-datepicker';
                         this.fechaExpedicion = '';
                         this.fechaNacimiento = '';
                         this.sexo_id = 0;
-                        this.etnia_id = 0;
-                        this.escolaridad_id = 0;
                         this.telefono = '';
                         this.direccion='';
                         this.email = '';
                         this.departamento_id = 0;
                         this.municipio_id = 0;
-                        this.vereda_id = 0;
-                        this.resguardo_id = 0;
                         this.fechaIngreso = '';
-                        this.fotocopiaCedula = '';
                         this.tipoAccion=1;
                         break;
                     }    
@@ -613,17 +557,13 @@ import Datepicker from 'vuejs-datepicker';
                         this.fechaExpedicion = data['fechaExpedicion'];
                         this.fechaNacimiento = data['fechaNacimiento'];
                         this.sexo_id = data['sexo_id'];
-                        this.etnia_id = data['etnia_id'];
-                        this.escolaridad_id = data['escolaridad_id'];
                         this.telefono = data['telefono'];
                         this.direccion=data['direccion'];
                         this.email = data['email'];
                         this.departamento_id = data['departamento_id'];
                         this.municipio_id = data['municipio_id'];
-                        this.vereda_id = data['vereda_id'];
-                        this.resguardo_id = data['resguardo_id'];
+                        this.vereda = data['vereda'];
                         this.fechaIngreso = data['fechaIngreso'];
-                        this.fotocopiaCedula = data['fotocopiaCedula'];
                         break;
                     }       
                 }

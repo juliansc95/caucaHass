@@ -30,7 +30,7 @@
           </div>
           <div class="card text-white bg-success py-5 d-md-down-none" style="width:44%">
             <div class="card-body text-center">
-            <img class="card-img-top" src="img/logo2.png" alt="Card image" style="width: 20%;">
+            <img class="card-img-top" src="img/icono_puntero.ico" alt="Card image" style="width: 20%;">
               <div>
               <h2>Sistema de Informacion CaucaHass</h2>
                 <p>Sistema de gestion, productores, fincas y cultivos Cauca Hass.</p>

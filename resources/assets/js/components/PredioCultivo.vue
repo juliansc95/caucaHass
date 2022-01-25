@@ -8,7 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Predio Cultivo Informacion
+                        <i class="fa fa-align-justify"></i> Aplicacion de fertilizantes
                         <button type="button" @click="abrirModal('predio','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -50,13 +50,7 @@
                                     <th>Detalle</th>
                                     <th>Productor</th>
                                     <th>Finca</th>
-                                    <th>Procedencia Semilla</th>
                                     <th>Fecha Siembra</th>
-                                    <th>Numero Plantas Totales</th>
-                                    <th>Numero Plantas Produccion</th>
-                                    <th>Plantas Erradicadas</th>
-                                    <th>Plantas en levante</th>
-                                    <th>Tipo Mora</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,13 +63,7 @@
                                     </td> 
                                     <td v-text="predio.nombre"></td>
                                     <td v-text="predio.nombre_finca"></td> 
-                                    <td v-text="predio.nombre_vereda"></td> 
                                     <td v-text="predio.fechaSiembra"></td> 
-                                    <td v-text="predio.numeroPlantasTotales"></td> 
-                                    <td v-text="predio.numeroPlantasProduccion"></td> 
-                                    <td v-text="predio.plantasErradicadas"></td> 
-                                    <td v-text="predio.plantasLevante"></td> 
-                                    <td v-text="predio.TipoMora"></td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -127,77 +115,61 @@
                                       </select>  
                                     </div>
                                 </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Procedencia Semilla</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="vereda_id">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="vereda in arrayVereda" :key="vereda.id" :value="vereda.id" v-text="vereda.nombre" ></option>
-                                      </select>  
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Area sembrada en Mora(Hectareas)</label>
-                                    <div class="col-md-9">
-                                       <input type="number" v-model="areaSembradaPredio"  class="form-control" placeholder="">
-                                    </div>
-                                </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fecha de Siembra</label>
                                     <div class="col-md-9">
                                          <v-datepicker :inline="true" v-model="fechaSiembra "></v-datepicker>
                                     </div>
                                 </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Nombre comercial del producto</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="propietario"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Ingeniero Agronomo</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="ingeniero"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Numero de plantas totales o sitios</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Concentracion</label>
                                     <div class="col-md-9">
                                        <input type="number" v-model="numeroPlantasTotales"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Numero de plantas produccion</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Registro ICA</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="numeroPlantasProduccion"  class="form-control" placeholder="">
+                                       <input type="text" v-model="registro"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Plantas Erradicadas</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Dosis</label>
                                     <div class="col-md-9">
                                        <input type="number" v-model="plantasErradicadas"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Plantas en Levante</label>
-                                    <div class="col-md-9">
-                                       <input type="number" v-model="plantasLevante"  class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Tipo de Mora</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="TipoMora">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                            <option value="Con espinas">Con espinas</option>
-                                            <option value="Sin espinas">Sin espinas</option>
-                                      </select>  
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Tipo de Reproduccion</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Forma de aplicacion</label>
                                     <div class="col-md-9">
                                        <input type="text" v-model="tipoReproduccion"  class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">La semilla se recibio en bolsa</label>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Quien recomendó</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="bolsa">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                            <option value="Si">Si</option>
-                                            <option value="No">No</option>
-                                      </select>  
+                                       <input type="text" v-model="recomendo"  class="form-control" placeholder="">
                                     </div>
-                                </div>                             
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Quien aplico</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="aplico"  class="form-control" placeholder="">
+                                    </div>
+                                </div>                      
                                 <div v-show="errorPredioCultivo" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjCultivo" :key="error" v-text="error">
@@ -414,7 +386,7 @@ import vSelect from 'vue-select';
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Predio Cultivo';
+                        this.tituloModal = 'Registro Aplicacion de fertilizantes';
                         this.productor_id=0;
                         this.finca_id=0;
                         this.areaSembradaPredio=0;
@@ -432,7 +404,7 @@ import vSelect from 'vue-select';
                     }  case 'actualizar':
                     {
                         this.modal=1;
-                        this.tituloModal='Detalle Predio cultivo';
+                        this.tituloModal='Detalle aplicacion de fertilizantes';
                         this.tipoAccion=2;
                         this.tutorado_id=data['id'];
                         this.productor_id=data['productor_id'];

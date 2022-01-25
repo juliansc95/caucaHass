@@ -8,22 +8,22 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Poda
-                        <button type="button" @click="abrirModal('poda','registrar')" class="btn btn-secondary">
+                        <i class="fa fa-align-justify"></i> Aplicacion de productos quimicos
+                        <button type="button" @click="abrirModal('predio','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPodaEx
-                            worksheet = "Poda"
-                            name    = "poda.xls">
+                            :data   = arrayPredioCultivoEx
+                            worksheet = "Predio Cultivo"
+                            name    = "predioCultivo.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPodaEx
+                            :data   = arrayPredioCultivoEx
                             type="csv"
-                            name    = "poda.xls">
+                            name    = "predioCultivo.xls">
                             csv
                         </export-excel>
                          <button type="button" @click="cargarPdf()" class="btn btn-info">
@@ -38,8 +38,8 @@
                                       <option value="personas">Productor</option>
                                       
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarPoda(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarPoda(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarPredioCultivo(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarPredioCultivo(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -50,32 +50,20 @@
                                     <th>Detalle</th>
                                     <th>Productor</th>
                                     <th>Finca</th>
-                                    <th>Estado Vegetativo</th>
-                                    <th>Poda de Aclareo</th>
-                                    <th>Frecuencia(dias)</th>
-                                    <th>Poda de Mantenimiento</th>
-                                    <th>Frecuencia(dias)</th>
-                                    <th>Poda Fitosanitaria</th>
-                                    <th>Frecuencia(dias)</th>
+                                    <th>Fecha Siembra</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                <tr v-for="poda in arrayPoda" :key="poda.id">
+                                <tr v-for="predio in arrayPredioCultivo" :key="predio.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('poda','actualizar',poda)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('predio','actualizar',predio)" class="btn btn-warning btn-sm">
                                           <i class="icon-eye"></i>
                                         </button> &nbsp;
                                     </td> 
-                                    <td v-text="poda.nombre"></td>
-                                    <td v-text="poda.nombre_finca"></td> 
-                                    <td v-text="poda.estadoVegetativo"></td> 
-                                    <td v-text="poda.podaAclareo"></td> 
-                                    <td v-text="poda.frecuenciaAclareo"></td> 
-                                    <td v-text="poda.podaMantenimiento"></td> 
-                                    <td v-text="poda.frecuenciaMantenimiento"></td> 
-                                    <td v-text="poda.podaFitosanitaria"></td> 
-                                    <td v-text="poda.frecuenciaFitosanitaria"></td> 
+                                    <td v-text="predio.nombre"></td>
+                                    <td v-text="predio.nombre_finca"></td> 
+                                    <td v-text="predio.fechaSiembra"></td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -128,76 +116,98 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Estado Vegetativo</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Fecha de Siembra</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="estadoVegetativo">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Levante">Levante</option>
-                                            <option value="Produccion">Produccion</option>
-                                      </select>  
+                                         <v-datepicker :inline="true" v-model="fechaSiembra "></v-datepicker>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Poda de Formacion</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Cultivo</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="podaFormacion">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Si">Si</option>
-                                            <option value="No">No</option>
-                                      </select>  
+                                       <input type="text" v-model="cultivo"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Poda Aclareo</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Lote</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="podaAclareo">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Si">Si</option>
-                                            <option value="No">No</option>
-                                      </select>  
+                                       <input type="number" v-model="lote"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Frecuencia(dias)</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Asistente tecnico</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="frecuenciaAclareo"  class="form-control" placeholder="">
+                                       <input type="text" v-model="asistente"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Poda Mantenimiento</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Año</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="podaMantenimiento">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Si">Si</option>
-                                            <option value="No">No</option>
-                                      </select>  
+                                       <input type="number" v-model="lote"  class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Frecuencia(dias)</label>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Nombre comercial del producto</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="frecuenciaMantenimiento"  class="form-control" placeholder="">
+                                       <input type="text" v-model="propietario"  class="form-control" placeholder="">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Poda Fitosanitaria</label>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Ingrediente Activo</label>
                                     <div class="col-md-9">
-                                      <select class="form-control" v-model="podaFitosanitaria">
-                                            <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Si">Si</option>
-                                            <option value="No">No</option>
-                                      </select>  
+                                       <input type="text" v-model="ingrediente"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Frecuencia(dias)</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Registro ICA</label>
                                     <div class="col-md-9">
-                                       <input type="number" v-model="frecuenciaFitosanitaria"  class="form-control" placeholder="">
+                                       <input type="text" v-model="registro"  class="form-control" placeholder="">
                                     </div>
-                                </div>                               
-                                <div v-show="errorPoda" class="form-group row div-error">
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Blanco Biologico</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="registro"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Dosis Aplicada</label>
+                                    <div class="col-md-9">
+                                       <input type="number" v-model="plantasErradicadas"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Forma de aplicacion</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="tipoReproduccion"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo de carencia</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="carencia"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo de entrada</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="entrada"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Quien recomendó</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="recomendo"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Quien aplico</label>
+                                    <div class="col-md-9">
+                                       <input type="text" v-model="aplico"  class="form-control" placeholder="">
+                                    </div>
+                                </div>                      
+                                <div v-show="errorPredioCultivo" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjPoda" :key="error" v-text="error">
+                                        <div v-for="error in errorMostrarMsjCultivo" :key="error" v-text="error">
 
                                         </div>
                                     </div>
@@ -206,7 +216,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarPoda()">Guardar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarPredioCultivo()">Guardar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -223,24 +233,26 @@ import vSelect from 'vue-select';
     export default {
         data(){
             return{
-                cosecha_id:0,
+                tutorado_id:0,
                 productor_id:0,
                 finca_id:0,
-                estadoVegetativo:'Seleccione',
-                podaFormacion:'Seleccione',
-                podaAclareo:'Seleccione',
-                frecuenciaAclareo:0,
-                podaMantenimiento:'Seleccione',
-                frecuenciaMantenimiento:0,
-                podaFitosanitaria:'Seleccione',
-                frecuenciaFitosanitaria:0,
-                arrayPoda: [],
-                arrayPodaEx: [],
+                areaSembradaPredio:0, 
+                fechaSiembra:'',
+                numeroPlantasTotales:0,
+                numeroPlantasProduccion:0,
+                plantasErradicadas:0,
+                plantasLevante:0,
+                TipoMora:'Seleccione',
+                vereda_id:0,
+                tipoReproduccion:'',
+                bolsa:'Seleccione',                
+                arrayPredioCultivo: [],
+                arrayPredioCultivoEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
-                errorPoda : 0,
-                errorMostrarMsjPoda:[],
+                errorPredioCultivo : 0,
+                errorMostrarMsjCultivo:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -253,7 +265,8 @@ import vSelect from 'vue-select';
                 criterio: 'personas',
                 buscar: '',
                 arrayProductor : [],
-                arrayFinca : []                  
+                arrayFinca : [],
+                arrayVereda:[]                  
             }
         },
         computed:{
@@ -282,24 +295,24 @@ import vSelect from 'vue-select';
 
         },
         methods: {
-            listarPoda(page,buscar,criterio){
+            listarPredioCultivo(page,buscar,criterio){
                 let me =this;
-                var url ='poda?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='predio?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayPoda= respuesta.podas.data;
+                    me.arrayPredioCultivo= respuesta.predios.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
-             listarPodaEx(){
+            listarPredioCultivoEx(page,buscar,criterio){
                 let me =this;
-                var url ='poda/excel';
+                var url ='predioCultivo/excel';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayPodaEx= respuesta.podas;
+                    me.arrayPredioCultivoEx= respuesta.predios;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -326,116 +339,134 @@ import vSelect from 'vue-select';
                 .catch(function (error) {
                     console.log(error);
                 })
+            },
+            selectVereda(){
+                let me =this;
+                var url ='vereda/selectVereda';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayVereda= respuesta.veredas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             },          
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarPoda(page,buscar,criterio);
+                me.listarPredioCultivo(page,buscar,criterio);
             },
-            registrarPoda(){
-            if(this.validarPoda()){
+            registrarPredioCultivo(){
+            if(this.validarPredioCultivo()){
                 return;
             }
             let me=this;
-            axios.post('poda/registrar',{
+            axios.post('predio/registrar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
-                'estadoVegetativo':this.estadoVegetativo,
-                'podaFormacion':this.podaFormacion,
-                'podaAclareo':this.podaAclareo,
-                'frecuenciaAclareo':this.frecuenciaAclareo,
-                'podaMantenimiento':this.podaMantenimiento,
-                'frecuenciaMantenimiento':this.frecuenciaMantenimiento,
-                'podaFitosanitaria':this.podaFitosanitaria,
-                'frecuenciaFitosanitaria':this.frecuenciaFitosanitaria                  
+                'areaSembradaPredio':this.areaSembradaPredio, 
+                'fechaSiembra':this.fechaSiembra,
+                'numeroPlantasTotales':this.numeroPlantasTotales,
+                'numeroPlantasProduccion':this.numeroPlantasProduccion,
+                'plantasErradicadas':this.plantasErradicadas,
+                'plantasLevante':this.plantasLevante,
+                'TipoMora':this.TipoMora,
+                'vereda_id':this.vereda_id,
+                'tipoReproduccion':this.tipoReproduccion,
+                'bolsa':this.bolsa                                   
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarPoda(1,'','personas');
+                    me.listarPredioCultivo(1,'','personas');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
         },
-         cargarPdf(){
-                window.open('http://gestion.asofrut.org/poda/listarPdf');
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/predioCultivo/listarPdf');
             },    
-            validarPoda(){
-            this.errorPoda=0;
-            this.errorMostrarMsjPoda=[];
-            if(this.productor_id==0)this.errorMostrarMsjPoda.push("Debe seleccionar un productor");
-            if(this.finca_id==0)this.errorMostrarMsjPoda.push("Debe seleccionar una finca.");
-            if(this.errorMostrarMsjPoda.length) this.errorPoda=1;
-
-            return this.errorPoda;
+            validarPredioCultivo(){
+            this.errorPredioCultivo=0;
+            this.errorMostrarMsjCultivo=[];
+            if(this.productor_id==0)this.errorMostrarMsjCultivo.push("Debe seleccionar un productor");
+            if(this.finca_id==0)this.errorMostrarMsjCultivo.push("Debe seleccionar una finca.");
+            if(this.errorMostrarMsjCultivo.length) this.errorPredioCultivo=1;
+            return this.errorPredioCultivo;
         },
             cerrarModal(){
                         this.modal=0;
                         this.tituloModal='';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.estadoVegetativo='Seleccione';
-                        this.podaFormacion='Seleccione';
-                        this.podaAclareo='Seleccione';
-                        this.frecuenciaAclareo=0;
-                        this.podaMantenimiento='Seleccione';
-                        this.frecuenciaMantenimiento=0;
-                        this.podaFitosanitaria='Seleccione';
-                        this.frecuenciaFitosanitaria=0;  
-                        this.errorPoda=0;
+                        this.areaSembradaPredio=0, 
+                        this.fechaSiembra='',
+                        this.numeroPlantasTotales=0,
+                        this.numeroPlantasProduccion=0,
+                        this.plantasErradicadas=0,
+                        this.plantasLevante=0,
+                        this.TipoMora='Seleccione',
+                        this.vereda_id=0,
+                        this.tipoReproduccion='',
+                        this.bolsa='Seleccione',                         
+                        this.errorPredioCultivo=0;
         },
             abrirModal(modelo,accion,data = []){
             switch (modelo) {
-                case "poda":
+                case "predio":
                 {    
                 switch (accion) {
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar poda';
+                        this.tituloModal = 'Registro Aplicacion de productos quimicos';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.estadoVegetativo='Seleccione';
-                        this.podaFormacion='Seleccione';
-                        this.podaAclareo='Seleccione';
-                        this.frecuenciaAclareo=0;
-                        this.podaMantenimiento='Seleccione';
-                        this.frecuenciaMantenimiento=0;
-                        this.podaFitosanitaria='Seleccione';
-                        this.frecuenciaFitosanitaria=0;  
+                        this.areaSembradaPredio=0;
+                        this.fechaSiembra='';
+                        this.numeroPlantasTotales=0;
+                        this.numeroPlantasProduccion=0;
+                        this.plantasErradicadas=0;
+                        this.plantasLevante=0;
+                        this.TipoMora='Seleccione';
+                        this.vereda_id=0;
+                        this.tipoReproduccion='';
+                        this.bolsa='Seleccione';
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
                     {
                         this.modal=1;
-                        this.tituloModal='Detalle visita extensionista';
+                        this.tituloModal='Detalle aplicacion de productos quimicos';
                         this.tipoAccion=2;
-                        this.encuestaAsofrut_id=data['id'];
+                        this.tutorado_id=data['id'];
                         this.productor_id=data['productor_id'];
                         this.finca_id=data['finca_id'];
-                        this.estadoVegetativo=data['estadoVegetativo'];
-                        this.podaFormacion=data['podaFormacion'];
-                        this.podaAclareo=data['podaAclareo'];
-                        this.frecuenciaAclareo=data['frecuenciaAclareo'];
-                        this.podaMantenimiento=data['podaMantenimiento'];
-                        this.frecuenciaMantenimiento=data['frecuenciaMantenimiento'];
-                        this.podaFitosanitaria=data['podaFitosanitaria'];
-                        this.frecuenciaFitosanitaria=data['frecuenciaFitosanitaria']; 
-                        break
+                        this.areaSembradaPredio=data['areaSembradaPredio']; 
+                        this.fechaSiembra=data['fechaSiembra'];
+                        this.numeroPlantasTotales=data['numeroPlantasTotales'];
+                        this.numeroPlantasProduccion=data['numeroPlantasProduccion'];
+                        this.plantasErradicadas=data['plantasErradicadas'];
+                        this.plantasLevante=data['plantasLevante'];
+                        this.TipoMora=data['TipoMora'];
+                        this.vereda_id=data['vereda_id'];
+                        this.tipoReproduccion=data['tipoReproduccion'];
+                        this.bolsa=data['bolsa'];
+                        break;
                     }       
                 }
                 }
             }
             this.selectProductor();
-            this.selectFinca(this.productor_id);   
+            this.selectFinca(this.productor_id);
+            this.selectVereda();   
         }
         },        
         mounted() {
-           this.listarPoda(1,this.buscar,this.criterio);
-           this.listarPodaEx();
-           
+           this.listarPredioCultivo(1,this.buscar,this.criterio);
+           this.listarPredioCultivoEx();
         }
     }
 </script>

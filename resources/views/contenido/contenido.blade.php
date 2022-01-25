@@ -51,9 +51,7 @@
                <poda></poda>
             </template>
             
-            <template v-if="menu==11">
-               <plaga></plaga>
-            </template>
+          
 
             <template v-if="menu==12">
                <nutricion></nutricion>
@@ -106,7 +104,7 @@
             <template v-if="menu==23">
                 <lugarventa></lugarventa>
             </template>
-            <template v-if="menu==24">
+            <template v-if="menu==11">
                 <fitosanitario></fitosanitario>
             </template>
             <template v-if="menu==27">
@@ -144,10 +142,7 @@
                <poda></poda>
             </template>
             
-            <template v-if="menu==11">
-               <plaga></plaga>
-            </template>
-
+            
             <template v-if="menu==12">
                <nutricion></nutricion>
             </template>
