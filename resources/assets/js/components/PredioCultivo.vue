@@ -121,10 +121,13 @@
                                          <v-datepicker :inline="true" v-model="fechaAplicacion "></v-datepicker>
                                     </div>
                                 </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Nombre comercial del producto</label>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Nombre Producto fertilizante</label>
                                     <div class="col-md-9">
-                                       <input type="text" v-model="nombreProducto"  class="form-control" placeholder="">
+                                      <select class="form-control" v-model="nombreProducto">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="nombreProducto in arrayFertilizante" :key="nombreProducto.id" :value="nombreProducto.nombre" v-text="nombreProducto.nombre" ></option>
+                                      </select>  
                                     </div>
                                 </div>
                                  <div class="form-group row">
@@ -216,6 +219,7 @@ import vSelect from 'vue-select';
                 tipoReproduccion:'',
                 bolsa:'Seleccione',                
                 arrayPredioCultivo: [],
+                arrayFertilizante:[],
                 arrayPredioCultivoEx: [],
                 modal: 0,
                 tituloModal : '',
@@ -293,6 +297,17 @@ import vSelect from 'vue-select';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayProductor= respuesta.personas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+             selectFertilizante(){
+                let me =this;
+                var url ='producFertilizante/selectFertilizante';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayFertilizante= respuesta.fertilizantes;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -423,6 +438,7 @@ import vSelect from 'vue-select';
                 }
             }
             this.selectProductor();
+            this.selectFertilizante();
             this.selectFinca(this.productor_id);
             this.selectVereda();   
         }

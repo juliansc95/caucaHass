@@ -54,7 +54,7 @@
           
 
             <template v-if="menu==12">
-               <nutricion></nutricion>
+               <fertilizante></fertilizante>
             </template>
 
             <template v-if="menu==13">

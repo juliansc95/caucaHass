@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Periodo carencia</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo entrada</label>
                                     <div class="col-md-9">
                                        <input type="number" v-model="periodoEntrada"  class="form-control" placeholder="">
                                     </div>
@@ -416,7 +416,7 @@ import vSelect from 'vue-select';
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registro Aplicacion de fertilizantes';
+                        this.tituloModal = 'Registro Aplicacion de productos quimicos';
                         this.productor_id=0;
                         this.finca_id=0;
                         this.nombreProducto='';
@@ -432,7 +432,7 @@ import vSelect from 'vue-select';
                     }  case 'actualizar':
                     {
                         this.modal=1;
-                        this.tituloModal='Detalle aplicacion de fertilizantes';
+                        this.tituloModal='Detalle aplicacion de productos quimicos';
                         this.tipoAccion=2;
                         this.tutorado_id=data['id'];
                         this.productor_id=data['productor_id'];

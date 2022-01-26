@@ -264,6 +264,9 @@ Route::group(['middleware'=>['auth']],function(){
      Route::post('/quimicos/registrar','QuimicoController@store');
      Route::get('/quimicos/selectQuimico','QuimicoController@selectQuimico');
 
+     Route::get('/producFertilizante','ProductosFertilizanteController@index');
+     Route::post('/producFertilizante/registrar','ProductosFertilizanteController@store');
+     Route::get('/producFertilizante/selectFertilizante','ProductosFertilizanteController@selectFertilizante');
 
 
 

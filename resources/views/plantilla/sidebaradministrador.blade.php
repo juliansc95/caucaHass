@@ -58,7 +58,10 @@
                                 <a class="nav-link" href="#"><i class="icon-chart"></i>Aplicacion productos quimicos</a>
                             </li>
                             <li @click="menu=11" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-chart"></i>Productos</a>
+                                <a class="nav-link" href="#"><i class="icon-chart"></i>Productos Quimicos</a>
+                            </li>
+                            <li @click="menu=12" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-chart"></i>Fertilizantes</a>
                             </li>
                         </ul>
                     </li>

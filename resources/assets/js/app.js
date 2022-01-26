@@ -58,6 +58,7 @@ Vue.component('adecuacion', require('./components/GastosAdecuacion.vue'));
 Vue.component('produccion', require('./components/GastosProduccion.vue'));
 Vue.component('resumen', require('./components/Resumen.vue'));
 Vue.component('aplicacionq', require('./components/AplicacionQuimico.vue'));
+Vue.component('fertilizante', require('./components/ProductoFertilizante.vue'));
 
 
 //Vistas Productor
