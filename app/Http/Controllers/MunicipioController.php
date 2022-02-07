@@ -12,4 +12,8 @@ class MunicipioController extends Controller
         $municipios = Municipio::select('id','nombre')->orderBy('id','asc')->get();
         return['municipios'=>$municipios];
     }
+    public function departamentoMunicipio($id){
+         $municipios = Municipio::select('id','nombre')->where("departamento_id","=",$id)->orderBy('id','asc')->get();
+        return ["municipios",$municipios];
+    }
 }

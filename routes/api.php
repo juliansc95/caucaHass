@@ -34,6 +34,7 @@
     });
 
     Route::get('/tipoId/selectTipoId','TipoIdController@selectTipoId');
+    Route::get('/selects','selectController@select');
     Route::get('/sexo/selectSexo','SexoController@selectSexo');
     Route::get('/escolaridad/selectEscolaridad','GradoEscolaridadController@selectGradoEscolaridad');
     Route::get('/etnia/selectEtnia','EtniaController@selectEtnia');
@@ -56,6 +57,8 @@
     Route::get('/unidadAplicacion/selectUnidad','EquipoAplicacionController@selectUnidad');
     Route::get('/unidadDosis/selectDosis','EquipoAplicacionController@selectDosis');
     Route::get('/producto/selectProducto2','EquipoAplicacionController@selectProducto2');
+    Route::get('municipio/{id}', 'MunicipioController@departamentoMunicipio');
+    Route::get('vereda/{id}', 'VeredaController@municipioVerera');
 
     Route::get('/finca','FincaController@indexApi');
     Route::post('/finca/registrar','FincaController@store');
