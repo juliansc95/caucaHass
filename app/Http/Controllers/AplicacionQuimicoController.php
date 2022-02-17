@@ -19,12 +19,13 @@ class AplicacionQuimicoController extends Controller
             join('productors','aplquimicos.productor_id','=','productors.id')
             ->join('personas','aplquimicos.productor_id','=','personas.id')
             ->join('fincas','aplquimicos.finca_id','=','fincas.id')
+            ->join('quimicos','aplquimicos.quimico_id','=','quimicos.id')
             ->select('aplquimicos.id','aplquimicos.productor_id','aplquimicos.finca_id',
             'aplquimicos.fechaAplicacion','aplquimicos.quimico_id','aplquimicos.nombreIngenieroAgronomo',
             'aplquimicos.concentracion','aplquimicos.RegistroICA','aplquimicos.Dosis',
             'aplquimicos.periodoCarencia','aplquimicos.periodoEntrada',
             'aplquimicos.formaAplicacion',
-            'aplquimicos.recomendo','aplquimicos.aplico',
+            'aplquimicos.recomendo','aplquimicos.aplico', 'quimicos.nombre as nombre_quimico',
             'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
             )
             ->orderBy('aplquimicos.id','desc')->paginate(10);
@@ -34,12 +35,13 @@ class AplicacionQuimicoController extends Controller
             join('productors','aplquimicos.productor_id','=','productors.id')
             ->join('personas','aplquimicos.productor_id','=','personas.id')
             ->join('fincas','aplquimicos.finca_id','=','fincas.id')
+            ->join('quimicos','aplquimicos.quimico_id','=','quimicos.id')
             ->select('aplquimicos.id','aplquimicos.productor_id','aplquimicos.finca_id',
             'aplquimicos.fechaAplicacion','aplquimicos.quimico_id','aplquimicos.nombreIngenieroAgronomo',
             'aplquimicos.concentracion','aplquimicos.RegistroICA','aplquimicos.Dosis',
             'aplquimicos.periodoCarencia','aplquimicos.periodoEntrada',
             'aplquimicos.formaAplicacion',
-            'aplquimicos.recomendo','aplquimicos.aplico',
+            'aplquimicos.recomendo','aplquimicos.aplico', 'quimicos.nombre as nombre_quimico',
             'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
             )
             ->where('aplquimicos.'.$criterio, 'like', '%'. $buscar . '%')
@@ -84,4 +86,49 @@ class AplicacionQuimicoController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $quimicos= AplicacionQuimico::
+            join('productors','aplquimicos.productor_id','=','productors.id')
+            ->join('personas','aplquimicos.productor_id','=','personas.id')
+            ->join('fincas','aplquimicos.finca_id','=','fincas.id')
+            ->join('quimicos','aplquimicos.quimico_id','=','quimicos.id')
+            ->select('aplquimicos.id','aplquimicos.productor_id','aplquimicos.finca_id',
+            'aplquimicos.fechaAplicacion','aplquimicos.quimico_id','aplquimicos.nombreIngenieroAgronomo',
+            'aplquimicos.concentracion','aplquimicos.RegistroICA','aplquimicos.Dosis',
+            'aplquimicos.periodoCarencia','aplquimicos.periodoEntrada',
+            'aplquimicos.formaAplicacion',
+            'aplquimicos.recomendo','aplquimicos.aplico', 'quimicos.nombre as nombre_quimico',
+            'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
+            )
+        ->orderBy('aplquimicos.id','desc')->get();
+        $cont=AplicacionQuimico::count();
+
+        $pdf = \PDF::loadView('pdf.quimicos',['quimicos'=>$quimicos,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('quimicos.pdf');  
+    }
+
+    public function excel(Request $request)
+    {    
+        $quimicos= AplicacionQuimico::
+        join('productors','aplquimicos.productor_id','=','productors.id')
+        ->join('personas','aplquimicos.productor_id','=','personas.id')
+        ->join('fincas','aplquimicos.finca_id','=','fincas.id')
+        ->join('quimicos','aplquimicos.quimico_id','=','quimicos.id')
+        ->select('aplquimicos.id','aplquimicos.productor_id','aplquimicos.finca_id',
+        'aplquimicos.fechaAplicacion','aplquimicos.quimico_id','aplquimicos.nombreIngenieroAgronomo',
+        'aplquimicos.concentracion','aplquimicos.RegistroICA','aplquimicos.Dosis',
+        'aplquimicos.periodoCarencia','aplquimicos.periodoEntrada',
+        'aplquimicos.formaAplicacion',
+        'aplquimicos.recomendo','aplquimicos.aplico', 'quimicos.nombre as nombre_quimico',
+        'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
+        )
+            ->orderBy('aplquimicos.id','desc')->get();
+            return [
+                'quimicos' => $quimicos
+            ];
+    }
+
 }

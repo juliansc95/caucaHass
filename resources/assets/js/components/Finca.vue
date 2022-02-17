@@ -429,8 +429,8 @@
 
         },
             cargarPdf(){
-                //window.open('http://gestion.asofrut.org/finca/listarPdf');
-                window.open('/caucahass/public/finca/listarPdf');
+                window.open('http://caucahass.sttmserver.com/finca/listarPdf');
+                //window.open('/caucahass/public/finca/listarPdf');
             },
             actualizarFinca(){
             if(this.validarFinca()){

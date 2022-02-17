@@ -34,6 +34,9 @@ Vue.component('categoriamora', require('./components/categoriaMora.vue'));
 Vue.component('v-select', vSelect);
 Vue.component('v-datepicker', Datepicker);
 Vue.component('venta', require('./components/Venta.vue'));
+Vue.component('ventaview', require('./components/VentaView.vue'));
+Vue.component('compra', require('./components/Compra.vue'));
+Vue.component('compraview', require('./components/CompraView.vue'));
 Vue.component('lugarventa', require('./components/LugarVenta.vue'));
 Vue.component('encuestafitosanitaria', require('./components/EncuestaFitosanitaria.vue'));
 Vue.component('visita', require('./components/EncuestaAsofrut.vue'));
@@ -59,6 +62,7 @@ Vue.component('produccion', require('./components/GastosProduccion.vue'));
 Vue.component('resumen', require('./components/Resumen.vue'));
 Vue.component('aplicacionq', require('./components/AplicacionQuimico.vue'));
 Vue.component('fertilizante', require('./components/ProductoFertilizante.vue'));
+Vue.component('proyeccion', require('./components/Proyeccion.vue'));
 
 
 //Vistas Productor

@@ -15,15 +15,15 @@
                          <export-excel
                             class   = "button btn btn-success"
                             :data   = arrayPredioCultivoEx
-                            worksheet = "Predio Cultivo"
-                            name    = "predioCultivo.xls">
+                            worksheet = "Aplicacion Quimicos"
+                            name    = "quimicos.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
                             :data   = arrayPredioCultivoEx
                             type="csv"
-                            name    = "predioCultivo.xls">
+                            name    = "quimicos.xls">
                             csv
                         </export-excel>
                          <button type="button" @click="cargarPdf()" class="btn btn-info">
@@ -294,10 +294,10 @@ import vSelect from 'vue-select';
             },
             listarPredioCultivoEx(page,buscar,criterio){
                 let me =this;
-                var url ='predioCultivo/excel';
+                var url ='aplicacionQ/excel';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayPredioCultivoEx= respuesta.predios;
+                    me.arrayPredioCultivoEx= respuesta.quimicos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -383,7 +383,8 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://gestion.asofrut.org/predioCultivo/listarPdf');
+                //window.open('/caucahass/public/aplicacionQ/listarPdf')
+                window.open('http://caucahass.sttmserver.com/aplicacionQ/listarPdf');
             },    
             validarPredioCultivo(){
             this.errorPredioCultivo=0;

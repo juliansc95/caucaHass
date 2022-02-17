@@ -450,8 +450,8 @@ import Datepicker from 'vuejs-datepicker';
 
         },
          cargarPdf(){
-                //window.open('http://gestion.asofrut.org/productor/listarPdf');
-                window.open('/caucahass/public/productor/listarPdf');
+                window.open('http://caucahass.sttmserver.com/productor/listarPdf');
+                //window.open('/caucahass/public/productor/listarPdf');
         },
             actualizarProductor(){
             if(this.validarProductor()){

@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            font-size: 0.875rem;
+            font-size: 0.575rem;
             font-weight: normal;
             line-height: 1.5;
             color: #151b1e;           
@@ -88,33 +88,35 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr>
-                    <th>Productor</th>
-                    <th>Linea</th>
-                    <th>Fecha</th>
-                    <th>Lugar de Venta</th>
-                    <th>Peso Total(Kg)</th>
-                    <th>Descuento Donacion</th>
-                    <th>Descuento Transporte</th>
-                    <th>Descuento Asohofrucol</th>
-                    <th>Descuento 4x1000</th>
-                    <th>Total Neto</th>
-                    <th>Estado</th>
+                <th>Numero venta</th>
+                <th>Fecha</th>
+                <th>Codigo Producto</th>
+                <th>Descripcion Producto</th>
+                <th>Cantidad(Kilos)</th>
+                <th>Valor Bruto</th>
+                <th>Descuento</th>
+                <th>Valor Neto</th>
+                <th>Valor Iva</th>
+                <th>Total Item</th>
+                <th>Documento</th>
+                <th>Nombre Tercero</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($ventas as $v)
                 <tr>
-                    <td>{{$v->nombre_persona}}</td>
-                    <td>{{$v->nombre_linea}}</td>
-                    <td>{{ \Carbon\Carbon::parse($v->fechaVenta)->format('d/m/Y')}}</td>
-                    <td>{{$v->nombre_lugarVenta}}</td>
-                    <td>{{$v->totalKilos}}</td>
-                    <td>{{$v->totalDonacion}}</td>
-                    <td>{{$v->totalTransporte}}</td>
-                    <td>{{$v->totalAsohof}}</td>
-                    <td>{{$v->totalCuatroXmil}}</td>
-                    <td>{{$v->totalVenta}}</td>
-                    <td>{{$v->nombre_estadoVenta}}</td>
+                    <td>{{$v->VentaNro}}</td>
+                    <td>{{$v->Fecha}}</td>
+                    <td>{{$v->CodProducto}}</td>
+                    <td>{{$v->DescripcionProducto}}</td>
+                    <td>{{$v->Cantidad}}</td>
+                    <td>{{$v->ValorBruto}}</td>
+                    <td>{{$v->Descuento}}</td>
+                    <td>{{$v->ValorNeto}}</td>
+                    <td>{{$v->ValorIva}}</td>
+                    <td>{{$v->TotalItem}}</td>
+                    <td>{{$v->Documento}}</td>
+                    <td>{{$v->NombreTercero}}</td>
                 </tr>
                 @endforeach                                
             </tbody>

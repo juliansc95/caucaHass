@@ -15,7 +15,7 @@
                          <export-excel
                         class   = "button btn btn-success"
                         :data   = arrayProductoFitosanitarioEx
-                        worksheet = "Productos Fitosanitarios"
+                        worksheet = "Productos Quimicos"
                         name    = "productos.xls">
                         Excel
                         </export-excel>
@@ -184,10 +184,10 @@
             },   
             listarProductoFitosanitarioEx(){
                 let me =this;
-                var url ='producto/excel';
+                var url ='quimicos/excel';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayProductoFitosanitarioEx= respuesta.productoFitosanitarios;
+                    me.arrayProductoFitosanitarioEx= respuesta.quimicos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -217,7 +217,8 @@
 
         },
         cargarPdf(){
-                window.open('http://gestion.asofrut.org/producto/listarPdf');
+                //window.open('/caucahass/public/quimicos/listarPdf');    
+                window.open('http://caucahass.sttmserver.com/quimicos/listarPdf');
             },
             actualizarProductoFitosanitario(){
             if(this.validarProductoFitosanitario()){

@@ -352,7 +352,8 @@
 
         },
         cargarPdf(){
-                window.open('http://gestion.asofrut.org/user/listarPdf');
+                //window.open('http://gestion.asofrut.org/user/listarPdf');
+                window.open('http://caucahass.sttmserver.com/user/listarPdf')
             },
             actualizarPersona(){
             if(this.validarPersona()){

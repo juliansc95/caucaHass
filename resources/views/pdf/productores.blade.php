@@ -92,7 +92,6 @@
                 <th>Numero documento</th>
                 <th>Fecha nacimiento</th>
                 <th>Sexo</th>
-                <th>Grado escolaridad</th>
                 <th>Telefono</th>
                 <th>Correo electronico</th>
                 <th>Vereda</th>
@@ -106,10 +105,9 @@
                     <td>{{$p->num_documento}}</td>
                     <td>{{$p->fechaNacimiento}}</td>
                     <td>{{$p->nombre_sexo}}</td>
-                    <td>{{$p->nombre_escolaridad}}</td>
                     <td>{{$p->telefono}}</td>
                     <td>{{$p->email}}</td>
-                    <td>{{$p->nombre_vereda}}</td>
+                    <td>{{$p->vereda}}</td>
                     <td>{{$p->fechaIngreso}}</td>
                 </tr>
                 @endforeach                                

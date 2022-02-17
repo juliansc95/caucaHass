@@ -27,6 +27,25 @@
                 <venta></venta>
             </template>
 
+            <template v-if="menu==13">
+               <compra></compra>
+            </template>
+
+            <template v-if="menu==14">
+               <ventaview></ventaview>
+            </template>
+
+            <template v-if="menu==15">
+               <compraview></compraview>
+            </template>
+
+            <template v-if="menu==16">
+               <proyeccion></proyeccion>
+            </template>
+
+
+
+
             <template v-if="menu==6">
             <categoriamora></categoriamora>
             </template>
@@ -57,26 +76,17 @@
                <fertilizante></fertilizante>
             </template>
 
-            <template v-if="menu==13">
-               <tutorado></tutorado>
-            </template>
+            
 
-            <template v-if="menu==14">
-               <riego></riego>
-            </template>
+            
 
-            <template v-if="menu==15">
-               <practica></practica>
-            </template>
+          
             <template v-if="menu==22">
                <enfermedad></enfermedad>
             </template>
 
 
-            <template v-if="menu==16">
-               <suelo></suelo>
-            </template>
-
+           
             <template v-if="menu==17">
                <vocacion></vocacion>
             </template>

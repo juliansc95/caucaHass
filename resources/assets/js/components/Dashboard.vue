@@ -11,7 +11,7 @@
             </div>
             <div class="car-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-9">
                         <div class="card card-chart">
                             <div class="card-header">
                                 <h4>Usuarios</h4>
@@ -27,7 +27,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
                         <div class="card card-chart">
                             <div class="card-header">
                                 <h4>Ventas</h4>
@@ -40,6 +42,24 @@
                             </div>
                             <div class="card-footer">
                                 <p>Ventas de los últimos dias.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-9">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4>Compras</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart">
+                                    <canvas id="compras">                                                
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p>Compras de los últimos dias.</p>
                             </div>
                         </div>
                     </div>
@@ -65,6 +85,12 @@
                 ventas:[],
                 varTotalVenta:[],
                 varMesVenta:[],
+
+                varCompra:null,
+                charCompra:null,
+                ventas:[],
+                varTotalCompra:[],
+                varMesCompra:[],
             }
         },
         methods: {
@@ -89,6 +115,19 @@
                     me.ventas = respuesta.ventas;
                     //cargamos los datos del chart
                     me.loadVentas();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getCompras(){
+                let me=this;
+                var url= 'dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.compras = respuesta.compras;
+                    //cargamos los datos del chart
+                    me.loadCompras();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -128,7 +167,7 @@
             loadVentas(){
                 let me=this;
                 me.ventas.map(function(x){
-                    me.varMesVenta.push(x.mes);
+                    me.varMesVenta.push(x.Fechaa);
                     me.varTotalVenta.push(x.total);
                 });
                 me.varVenta=document.getElementById('ventas').getContext('2d');
@@ -155,10 +194,42 @@
                         }
                     }
                 });
+            },
+             loadCompras(){
+                let me=this;
+                me.compras.map(function(x){
+                    me.varMesCompra.push(x.Fechaa);
+                    me.varTotalCompra.push(x.total);
+                });
+                me.varCompra=document.getElementById('compras').getContext('2d');
+
+                me.charCompra = new Chart(me.varCompra, {
+                    type: 'bar',
+                    data: {
+                        labels: me.varMesCompra,
+                        datasets: [{
+                            label: 'Compras',
+                            data: me.varTotalCompra,
+                            backgroundColor: 'rgba(118, 244, 6, 0.2)',
+                            borderColor: 'rgba(118, 244, 6, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
             }
         },
         mounted() {
             this.getVentas();
+            this.getCompras();
             this.getIngresos();
         },
     }

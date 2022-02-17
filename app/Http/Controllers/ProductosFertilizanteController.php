@@ -59,4 +59,24 @@ class ProductosFertilizanteController extends Controller
          ->orderBy('id','asc')->get();
          return['fertilizantes'=>$fertilizantes];
      }
+
+     public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $fertilizantes = ProductosFertilizante::select('id','nombre')
+        ->orderBy('productosfertilizantes.id','asc')->get();
+        $cont=ProductosFertilizante::count();
+
+        $pdf = \PDF::loadView('pdf.productosfertilizantes',['fertilizantes'=>$fertilizantes,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('productosfertilizantes.pdf');  
+    }
+
+    public function excel(Request $request)
+    {    
+        $fertilizantes = ProductosFertilizante::select('id','nombre')
+        ->orderBy('productosfertilizantes.id','asc')->get();
+            return [
+                'fertilizantes' => $fertilizantes
+            ];
+    } 
 }

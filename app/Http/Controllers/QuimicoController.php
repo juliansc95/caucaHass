@@ -59,4 +59,24 @@ class QuimicoController extends Controller
          ->orderBy('id','asc')->get();
          return['quimicos'=>$quimicos];
      }
+
+     public function listarPdf(Request $request)
+     {
+         $ahora= Carbon::now('America/Bogota');    
+         $quimicos = Quimico::select('id','nombre')
+         ->orderBy('quimicos.id','asc')->get();
+         $cont=Quimico::count();
+ 
+         $pdf = \PDF::loadView('pdf.productosquimicos',['quimicos'=>$quimicos,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+         return $pdf->download('productosquimicos.pdf');  
+     }
+ 
+     public function excel(Request $request)
+     {    
+        $quimicos = Quimico::select('id','nombre')
+        ->orderBy('quimicos.id','asc')->get();
+             return [
+                 'quimicos' => $quimicos
+             ];
+     } 
 }

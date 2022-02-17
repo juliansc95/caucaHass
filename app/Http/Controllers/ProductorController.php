@@ -229,20 +229,14 @@ class ProductorController extends Controller
     public function listarPdf(Request $request)
     {
         $ahora= Carbon::now('America/Bogota');        
-        $personas= Productor::join('personas','productors.id','=','personas.id')
+            $personas= Productor::join('personas','productors.id','=','personas.id')
             ->join('sexos','productors.sexo_id','=','sexos.id')
-            ->join('etnias','productors.etnia_id','=','etnias.id')
-            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
             ->join('departamentos','productors.departamento_id','=','departamentos.id')
             ->join('municipios','productors.municipio_id','=','municipios.id')
-            ->join('veredas','productors.vereda_id','=','veredas.id')
-            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
             ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
             'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
-            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
             'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
-            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
-            'productors.fotocopiaCedula')
+            'productors.vereda','productors.fechaIngreso')
             ->orderBy('productors.id','desc')->get();
             $cont=Productor::count();
 
@@ -254,20 +248,14 @@ class ProductorController extends Controller
     public function excel(Request $request)
     {       
         $personas= Productor::join('personas','productors.id','=','personas.id')
-            ->join('sexos','productors.sexo_id','=','sexos.id')
-            ->join('etnias','productors.etnia_id','=','etnias.id')
-            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
-            ->join('departamentos','productors.departamento_id','=','departamentos.id')
-            ->join('municipios','productors.municipio_id','=','municipios.id')
-            ->join('veredas','productors.vereda_id','=','veredas.id')
-            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
-            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
-            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
-            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
-            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
-            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
-            'productors.fotocopiaCedula')
-            ->orderBy('productors.id','desc')->get();
+        ->join('sexos','productors.sexo_id','=','sexos.id')
+        ->join('departamentos','productors.departamento_id','=','departamentos.id')
+        ->join('municipios','productors.municipio_id','=','municipios.id')
+        ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+        'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+        'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+        'productors.vereda','productors.fechaIngreso')
+        ->orderBy('productors.id','desc')->get();
             
             return [
                 'personas' => $personas

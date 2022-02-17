@@ -66,10 +66,10 @@ export default {
     },
     getMarkers() {
        let me =this;
-       var url ='gps';
+       var url ='finca';
         axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayGps= respuesta.gps;
+                    me.arrayGps= respuesta.fincas;
                     me.arrayPuntos= me.arrayGps['data'];
                 })
                 .catch(function (error) {
@@ -86,8 +86,8 @@ export default {
         
        for(let i=0;i<me.arrayPuntos.length;i++){
           markers.push({
-              position:  { lat: parseFloat(me.arrayGps['data'][i]['latitud']), lng:parseFloat(me.arrayGps['data'][i]['longitud'])},
-              title:me.arrayGps['data'][i]['nombre_finca'],
+              position:  { lat: parseFloat(me.arrayGps['data'][i]['latitudPredio']), lng:parseFloat(me.arrayGps['data'][i]['longitudPredio'])},
+              title:me.arrayGps['data'][i]['nombre'],
               icon:'img/icono_puntero.ico',        
             });
         }

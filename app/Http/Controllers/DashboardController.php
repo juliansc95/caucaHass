@@ -11,21 +11,31 @@ class DashboardController extends Controller
         $anio=date('Y');
        
         $ventas=DB::table('ventas as v')
-        ->select(DB::raw('DATE(v.fechaVenta) as mes'),
-        DB::raw('DAY(v.fechaVenta) as anio'),
-        DB::raw('SUM(v.totalVenta) as total'))
-        ->whereYear('v.fechaVenta',$anio)
-        ->groupBy(DB::raw('DATE(v.fechaVenta)'),DB::raw('DAY(v.fechaVenta)'))
+        ->select(
+        DB::raw('date_add(date("1900-01-01"), interval v.Fecha day ) as Fechaa '),    
+        DB::raw('DAY(date_add(date("1900-01-01"), interval Fecha day)) as anio'),
+        DB::raw('SUM(v.TotalItem) as total'))
+        //->whereYear('Fecha',$anio)
+       ->groupBy(DB::raw('Fechaa'))
         ->get(); 
 
-        $usuarios=DB::table('personas as v')
-        ->select(DB::raw('DATE(v.created_at) as mes'),
-        DB::raw('DAY(v.created_at) as anio'),
-        DB::raw('COUNT(v.id) as total'))
-        ->groupBy(DB::raw('DATE(v.created_at)'),DB::raw('DAY(v.created_at)'))
+        $compras=DB::table('compras as c')
+        ->select(
+        DB::raw('date_add(date("1900-01-01"), interval c.Fecha day ) as Fechaa '),    
+        DB::raw('DAY(date_add(date("1900-01-01"), interval Fecha day)) as anio'),
+        DB::raw('SUM(c.TotalItem) as total'))
+        //->whereYear('Fecha',$anio)
+       ->groupBy(DB::raw('Fechaa'))
+        ->get(); 
+
+        $usuarios=DB::table('personas as p')
+        ->select(DB::raw('DATE(p.created_at) as mes'),
+        DB::raw('DAY(p.created_at) as anio'),
+        DB::raw('COUNT(p.id) as total'))
+        ->groupBy(DB::raw('DATE(p.created_at)'),DB::raw('DAY(p.created_at)'))
         ->get();
 
-        return ['ventas'=>$ventas,'anio'=>$anio,'usuarios'=>$usuarios];         
+        return ['ventas'=>$ventas,'anio'=>$anio,'usuarios'=>$usuarios,'compras'=>$compras];         
 
     }
 }

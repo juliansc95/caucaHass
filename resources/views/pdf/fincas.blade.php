@@ -90,7 +90,6 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Productor</th>
-                    <th>Linea</th>
                     <th>Area Predio</th>
                     <th>Latitud Predio</th>
                     <th>Longitud Predio</th>
@@ -105,14 +104,13 @@
                 <tr>
                     <td>{{$f->nombre}}</td>
                     <td>{{$f->nombre_persona}}</td>
-                    <td>{{$f->nombre_linea}}</td>
                     <td>{{$f->areaPredio}}</td>
                     <td>{{$f->latitudPredio}}</td>
                     <td>{{$f->longitudPredio}}</td>
                     <td>{{$f->altitudPredio}}</td>
                     <td>{{$f->nombre_departamento}}</td>
                     <td>{{$f->nombre_municipio}}</td>
-                    <td>{{$f->nombre_vereda}}</td>
+                    <td>{{$f->vereda}}</td>
                 </tr>
                 @endforeach                                
             </tbody>

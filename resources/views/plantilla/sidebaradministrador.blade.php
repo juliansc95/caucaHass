@@ -24,13 +24,31 @@
                             <li @click="menu=21" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Mapa fincas</a>
                             </li>
+                            <li @click="menu=16" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Proyeccion</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i>Compras y Ventas</a>
+                        <ul class="nav-dropdown-items">
+                            <li @click="menu=14" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Ventas</a>
+                            </li>
+                        </ul>
                         <ul class="nav-dropdown-items">
                             <li @click="menu=5" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Ventas</a>
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Carga Ventas</a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-items">
+                            <li @click="menu=15" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Compras</a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-items">
+                            <li @click="menu=13" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i>Carga Compras</a>
                             </li>
                         </ul>
                     </li>

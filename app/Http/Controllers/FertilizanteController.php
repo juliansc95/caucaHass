@@ -81,4 +81,46 @@ class FertilizanteController extends Controller
         }
     }
 
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $fertilizantes= Fertilizante::
+        join('productors','fertilizantes.productor_id','=','productors.id')
+        ->join('personas','fertilizantes.productor_id','=','personas.id')
+        ->join('fincas','fertilizantes.finca_id','=','fincas.id')
+        ->select('fertilizantes.id','fertilizantes.productor_id','fertilizantes.finca_id',
+        'fertilizantes.fechaAplicacion','fertilizantes.nombreProducto','fertilizantes.nombreIngenieroAgronomo',
+        'fertilizantes.concentracion','fertilizantes.RegistroICA','fertilizantes.Dosis',
+        'fertilizantes.formaAplicacion',
+        'fertilizantes.recomendo','fertilizantes.aplico',
+        'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
+        )
+        ->orderBy('fertilizantes.id','desc')->get();
+        $cont=Fertilizante::count();
+
+        $pdf = \PDF::loadView('pdf.fertilizantes',['fertilizantes'=>$fertilizantes,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('fertilizantes.pdf');  
+    }
+
+    public function excel(Request $request)
+    {    
+        $fertilizantes= Fertilizante::
+        join('productors','fertilizantes.productor_id','=','productors.id')
+        ->join('personas','fertilizantes.productor_id','=','personas.id')
+        ->join('fincas','fertilizantes.finca_id','=','fincas.id')
+        ->select('fertilizantes.id','fertilizantes.productor_id','fertilizantes.finca_id',
+        'fertilizantes.fechaAplicacion','fertilizantes.nombreProducto','fertilizantes.nombreIngenieroAgronomo',
+        'fertilizantes.concentracion','fertilizantes.RegistroICA','fertilizantes.Dosis',
+        'fertilizantes.formaAplicacion',
+        'fertilizantes.recomendo','fertilizantes.aplico',
+        'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
+        )
+            ->orderBy('fertilizantes.id','desc')->get();
+            return [
+                'fertilizantes' => $fertilizantes
+            ];
+    }
+
+
+
 }
