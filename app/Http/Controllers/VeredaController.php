@@ -12,4 +12,8 @@ class VeredaController extends Controller
         $veredas = Vereda::select('id','nombre')->orderBy('id','asc')->get();
         return['veredas'=>$veredas];
     }
+    public function municipioVerera($id){
+        $veredas = Vereda::select('id','nombre')->where("municipio_id","=",$id)->orderBy('id','asc')->get();
+        return['veredas'=>$veredas];
+    }
 }
