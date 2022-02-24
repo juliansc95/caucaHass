@@ -35,7 +35,23 @@ class DashboardController extends Controller
         ->groupBy(DB::raw('DATE(p.created_at)'),DB::raw('DAY(p.created_at)'))
         ->get();
 
-        return ['ventas'=>$ventas,'anio'=>$anio,'usuarios'=>$usuarios,'compras'=>$compras];         
+        $proyeccions=DB::table('proyeccions as proyeccions')
+        ->select(
+        DB::raw('(SELECT SUM(kgProyectadoLoteUno)+SUM(kgProyectadoLoteDos) FROM proyeccions WHERE periodo="2021-1" and tipo="Nacional") as Nacional'),    
+        DB::raw('(SELECT SUM(kgProyectadoLoteUno)+SUM(kgProyectadoLoteDos) FROM proyeccions WHERE periodo="2021-1" and tipo="Exportacion") as Exportacion')   
+        //->whereYear('Fecha',$anio)
+       )->take(1)->get(); 
+
+       $proyeccions20212=DB::table('proyeccions as proyeccions')
+        ->select(
+        DB::raw('(SELECT SUM(kgProyectadoLoteUno)+SUM(kgProyectadoLoteDos) FROM proyeccions WHERE periodo="2021-2" and tipo="Nacional") as Nacional'),    
+        DB::raw('(SELECT SUM(kgProyectadoLoteUno)+SUM(kgProyectadoLoteDos) FROM proyeccions WHERE periodo="2021-2" and tipo="Exportacion") as Exportacion')   
+        //->whereYear('Fecha',$anio)
+       )->take(1)->get(); 
+
+        return ['ventas'=>$ventas,'anio'=>$anio,'usuarios'=>$usuarios,'compras'=>$compras,
+        'proyeccions'=>$proyeccions,'proyeccions20212'=>$proyeccions20212
+        ];         
 
     }
 }

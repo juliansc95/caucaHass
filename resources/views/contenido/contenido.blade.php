@@ -131,82 +131,63 @@
             </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
-                <ventatecnico></ventatecnico>
-            </template>   
+                <venta></venta>
+            </template>
+
+            <template v-if="menu==13">
+               <compra></compra>
+            </template>
+
+            <template v-if="menu==14">
+               <ventaview></ventaview>
+            </template>
+
+            <template v-if="menu==15">
+               <compraview></compraview>
+            </template>
+
+
+
             @elseif(Auth::user()->idrol == 3)
             <template v-if="menu==1">
-                <finca></finca>
+               <finca></finca>
             </template>
+
             <template v-if="menu==2">
                 <cultivo></cultivo>
             </template>
+
             <template v-if="menu==3">
                 <productor></productor>
             </template>
             
+            <template v-if="menu==4">
+                <encuestafitosanitaria></encuestafitosanitaria>
+            </template>
+            <template v-if="menu==16">
+               <proyeccion></proyeccion>
+            </template>
+            <template v-if="menu==21">
+               <gmap></gmap>
+            </template> 
             <template v-if="menu==9">
                 <predio></predio>
             </template>
 
             <template v-if="menu==10">
-               <poda></poda>
+               <aplicacionq></aplicacionq>
             </template>
             
-            
+            <template v-if="menu==11">
+                <fitosanitario></fitosanitario>
+            </template>
+          
             <template v-if="menu==12">
-               <nutricion></nutricion>
+               <fertilizante></fertilizante>
             </template>
-
-            <template v-if="menu==13">
-               <tutorado></tutorado>
-            </template>
-
-            <template v-if="menu==14">
-               <riego></riego>
-            </template>
-
-            <template v-if="menu==15">
-               <practica></practica>
-            </template>
-
-            <template v-if="menu==16">
-               <suelo></suelo>
-            </template>
-
-            <template v-if="menu==17">
-               <vocacion></vocacion>
-            </template>
-
-            <template v-if="menu==18">
-               <cosecha></cosecha>
-            </template>
-
-            <template v-if="menu==19">
-               <visita></visita>
-            </template>   
-            <template v-if="menu==20">
-               <gpx></gpx>
-            </template>    
             @elseif(Auth::user()->idrol == 4)
-            <template v-if="menu==1">
-                <fincaproductor></fincaproductor>
-            </template>
-
-            <template v-if="menu==2">
-                <cultivoproductor></cultivoproductor>
-            </template>
-
-            <template v-if="menu==3">
-                <productorpro></productorpro>
-            </template>
-
-            <template v-if="menu==4">
-                <encuestafitosanitaria></encuestafitosanitaria>
-            </template>
-
-            <template v-if="menu==5">
-            <VentaProductor></VentaProductor>
-            </template>
+            
+            
             @elseif(Auth::user()->idrol == 5)
             <template v-if="menu==5">
             <ventacontador></ventacontador>

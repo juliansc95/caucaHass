@@ -113,7 +113,9 @@
         },
         methods : {
             backupBD(){
-                window.open('/caucahass/public/backup');
+                //window.open('/caucahass/public/backup');
+                window.open('http://caucahass.sttmserver.com/backup');
+
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;

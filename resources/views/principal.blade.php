@@ -8,7 +8,7 @@
     <meta name="description" content="Sistema de Gestion CaucaHass">
     <meta name="author" content="EZLIFE">
     <meta name="keyword" content="Sistema de Gestion CaucaHass">
-    <link rel="shortcut icon" href="img/icono_puntero.ico">
+    <link rel="shortcut icon" href="img/caucahass5_170.png">
     <title>Sistema Gestion - CaucaHass</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js">
@@ -50,7 +50,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="img/icono_puntero.ico" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <img src="img/caucahass5_170.png" class="img-avatar" alt="admin@bootstrapmaster.com">
                     <span class="d-md-down-none">{{Auth::user()->usuario}} </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

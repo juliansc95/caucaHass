@@ -19,7 +19,7 @@ class ProyeccionController extends Controller
             join('productors','proyeccions.productor_id','=','productors.id')
             ->join('personas','proyeccions.productor_id','=','personas.id')
             ->join('fincas','proyeccions.finca_id','=','fincas.id')
-            ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id',
+            ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id','proyeccions.tipo','proyeccions.periodo',
             'proyeccions.arbolesLoteUno','proyeccions.EdadArbolesLoteUno','proyeccions.kgProyectadoLoteUno',
             'proyeccions.arbolesLoteDos','proyeccions.EdadArbolesLoteDos','proyeccions.kgProyectadoLoteDos',
             'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
@@ -31,7 +31,7 @@ class ProyeccionController extends Controller
             join('productors','proyeccions.productor_id','=','productors.id')
             ->join('personas','proyeccions.productor_id','=','personas.id')
             ->join('fincas','proyeccions.finca_id','=','fincas.id')
-            ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id',
+            ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id','proyeccions.tipo','proyeccions.periodo',
             'proyeccions.arbolesLoteUno','proyeccions.EdadArbolesLoteUno','proyeccions.kgProyectadoLoteUno',
             'proyeccions.arbolesLoteDos','proyeccions.EdadArbolesLoteDos','proyeccions.kgProyectadoLoteDos',
             'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
@@ -60,6 +60,8 @@ class ProyeccionController extends Controller
             $proyeccion = new Proyeccion();
             $proyeccion->productor_id = $request->productor_id;
             $proyeccion->finca_id = $request->finca_id;
+            $proyeccion->tipo = $request->tipo;
+            $proyeccion->periodo = $request->periodo;
             $proyeccion->arbolesLoteUno = $request->arbolesLoteUno;
             $proyeccion->EdadArbolesLoteUno = $request->EdadArbolesLoteUno;
             $proyeccion->kgProyectadoLoteUno = $request->kgProyectadoLoteUno;
@@ -80,6 +82,8 @@ class ProyeccionController extends Controller
         $proyeccion =Proyeccion::findOrFail($request->id);
         $proyeccion->productor_id = $request->productor_id;
         $proyeccion->finca_id = $request->finca_id;
+        $proyeccion->tipo = $request->tipo;
+        $proyeccion->periodo = $request->periodo;
         $proyeccion->arbolesLoteUno = $request->arbolesLoteUno;
         $proyeccion->EdadArbolesLoteUno = $request->EdadArbolesLoteUno;
         $proyeccion->kgProyectadoLoteUno = $request->kgProyectadoLoteUno;
@@ -97,7 +101,7 @@ class ProyeccionController extends Controller
         join('productors','proyeccions.productor_id','=','productors.id')
         ->join('personas','proyeccions.productor_id','=','personas.id')
         ->join('fincas','proyeccions.finca_id','=','fincas.id')
-        ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id',
+        ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id','proyeccions.tipo','proyeccions.periodo',
         'proyeccions.arbolesLoteUno','proyeccions.EdadArbolesLoteUno','proyeccions.kgProyectadoLoteUno',
         'proyeccions.arbolesLoteDos','proyeccions.EdadArbolesLoteDos','proyeccions.kgProyectadoLoteDos',
         'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'
@@ -115,7 +119,7 @@ class ProyeccionController extends Controller
         join('productors','proyeccions.productor_id','=','productors.id')
         ->join('personas','proyeccions.productor_id','=','personas.id')
         ->join('fincas','proyeccions.finca_id','=','fincas.id')
-        ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id',
+        ->select('proyeccions.id','proyeccions.productor_id','proyeccions.finca_id','proyeccions.tipo','proyeccions.periodo',
         'proyeccions.arbolesLoteUno','proyeccions.EdadArbolesLoteUno','proyeccions.kgProyectadoLoteUno',
         'proyeccions.arbolesLoteDos','proyeccions.EdadArbolesLoteDos','proyeccions.kgProyectadoLoteDos',
         'personas.nombre as nombre_productor','fincas.nombre as nombre_finca'

@@ -50,6 +50,8 @@
                                     <th>Detalle</th>
                                     <th>Productor</th>
                                     <th>Finca</th>
+                                    <th>Periodo</th>
+                                    <th>Tipo</th>
                                     <th>Arboles Lote Uno</th>
                                     <th>Edad Arboles</th>
                                     <th>Kg Proyectado</th>
@@ -68,6 +70,8 @@
                                     </td> 
                                     <td v-text="predio.nombre_productor"></td>
                                     <td v-text="predio.nombre_finca"></td> 
+                                    <td v-text="predio.periodo"></td>
+                                    <td v-text="predio.tipo"></td> 
                                     <td v-text="predio.arbolesLoteUno"></td> 
                                     <td v-text="predio.EdadArbolesLoteUno"></td> 
                                     <td v-text="predio.kgProyectadoLoteUno"></td> 
@@ -122,6 +126,28 @@
                                       <select class="form-control" v-model="finca_id">
                                             <option value="0" disabled>Seleccione</option>
                                             <option v-for="finca in arrayFinca" :key="finca.id" :value="finca.id" v-text="finca.nombre" ></option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Periodo</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="periodo">
+                                            <option value="Seleccione" disabled>Seleccione</option>
+                                            <option value="2021-1">2021-1</option>
+                                            <option value="2021-2">2021-2</option>
+                                            <option value="2022-1">2022-1</option>
+                                            <option value="2022-2">2022-2</option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Tipo</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="tipo">
+                                            <option value="Seleccione" disabled>Seleccione</option>
+                                            <option value="Nacional">Nacional</option>
+                                            <option value="Exportacion">Exportacion</option>
                                       </select>  
                                     </div>
                                 </div>
@@ -335,13 +361,14 @@ import vSelect from 'vue-select';
             axios.post('proyeccion/registrar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
+                'periodo':this.periodo,
+                'tipo':this.tipo,
                 'fechaAplicacion':this.fechaAplicacion, 
                 'nombreProducto':this.nombreProducto,
                 'arbolesLoteUno':this.arbolesLoteUno,
                 'EdadArbolesLoteUno':this.EdadArbolesLoteUno,
                 'kgProyectadoLoteUno':this.kgProyectadoLoteUno,
                 'arbolesLoteDos':this.arbolesLoteDos,
-                'formaAplicacion':this.formaAplicacion,
                 'EdadArbolesLoteDos':this.EdadArbolesLoteDos,
                 'kgProyectadoLoteDos':this.kgProyectadoLoteDos                                   
             }).then(function (response) {
@@ -361,13 +388,14 @@ import vSelect from 'vue-select';
             axios.put('proyeccion/actualizar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
+                'periodo':this.periodo,
+                'tipo':this.tipo,
                 'fechaAplicacion':this.fechaAplicacion, 
                 'nombreProducto':this.nombreProducto,
                 'arbolesLoteUno':this.arbolesLoteUno,
                 'EdadArbolesLoteUno':this.EdadArbolesLoteUno,
                 'kgProyectadoLoteUno':this.kgProyectadoLoteUno,
                 'arbolesLoteDos':this.arbolesLoteDos,
-                'formaAplicacion':this.formaAplicacion,
                 'EdadArbolesLoteDos':this.EdadArbolesLoteDos,
                 'kgProyectadoLoteDos':this.kgProyectadoLoteDos,   
                 'id':this.proyeccion_id
@@ -393,14 +421,15 @@ import vSelect from 'vue-select';
         },
             cerrarModal(){
                         this.modal=0;
-                        this.tituloModal='';
+                        this.tituloModal='Seleccione';
                         this.productor_id=0;
                         this.finca_id=0;
+                        this.periodo='Seleccione';
+                        this.tipo='Seleccione';
                         this.arbolesLoteUno=0;
                         this.EdadArbolesLoteUno=0;
                         this.kgProyectadoLoteUno=0;
                         this.arbolesLoteDos=0;
-                        this.formaAplicacion='Seleccione';
                         this.EdadArbolesLoteDos=0;
                         this.kgProyectadoLoteDos=0;                                        
                         this.errorPredioCultivo=0;
@@ -421,7 +450,8 @@ import vSelect from 'vue-select';
                         this.EdadArbolesLoteUno=0;
                         this.kgProyectadoLoteUno=0;
                         this.arbolesLoteDos=0;
-                        this.formaAplicacion='Seleccione';
+                        this.periodo='Seleccione';
+                        this.tipo='Seleccione';
                         this.EdadArbolesLoteDos=0;
                         this.kgProyectadoLoteDos=0;          
                         this.tipoAccion=1;
@@ -439,7 +469,8 @@ import vSelect from 'vue-select';
                         this.EdadArbolesLoteUno=data['EdadArbolesLoteUno'];
                         this.kgProyectadoLoteUno=data['kgProyectadoLoteUno'];
                         this.arbolesLoteDos=data['arbolesLoteDos'];
-                        this.formaAplicacion=data['formaAplicacion'];
+                        this.periodo=data['periodo'];
+                        this.tipo=data['tipo'];
                         this.EdadArbolesLoteDos=data['EdadArbolesLoteDos'];
                         this.kgProyectadoLoteDos=data['kgProyectadoLoteDos'];             
                         break;

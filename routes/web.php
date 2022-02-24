@@ -142,13 +142,7 @@ Route::group(['middleware'=>['auth']],function(){
 
 
      Route::group(['middleware'=>['Productor']],function(){
-        Route::get('/cultivoP','CultivoController@indexProductor');   
-        Route::get('/productorP','ProductorController@indexProductor');
-        Route::get('/fincaP','FincaController@indexProductor');
-        Route::get('/ventaP','ventaController@indexProductor');
-        Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');
-        Route::get('/fitosanitaria/listarPdf','EncuestaFitosanitariaController@listarPdf')->name('fitosanitaria_pdf');
-        Route::get('/fitosanitaria/excel','EncuestaFitosanitariaController@excel');
+
        });
 
        Route::group(['middleware'=>['Contador']],function(){
@@ -342,45 +336,68 @@ Route::group(['middleware'=>['auth']],function(){
 
 
     Route::group(['middleware'=>['TecnicoComercial']],function(){
-    //Rutas Ventas
-    Route::get('/venta', 'VentaController@index');
-    Route::post('/venta/registrar', 'VentaController@store');
-    Route::put('/venta/desactivar', 'VentaController@desactivar');
-    Route::get('/venta/obtenerCabecera', 'VentaController@obtenerCabecera');
-    Route::get('/venta/obtenerDetalles', 'VentaController@obtenerVentaCategoria');
-    Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
-    Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
-    Route::put('/venta/pasarPagado', 'VentaController@pasarPagado');
-    Route::get('/venta/pdf/{id}','VentaController@pdf')->name('venta_pdf');
-    Route::get('/venta/listarPdf','VentaController@listarPdf')->name('ventas_pdf');
-    Route::get('/venta/listarDiario','VentaController@listarPdfDiario')->name('ventas_dia_pdf');
     
+        Route::get('/ventas', 'VentasController@index');
+        Route::get('/ventas/listarPdf','VentasController@listarPdf');
+        Route::get('/ventas/listarDiario','VentasController@listarPdfDiario')->name('ventas_dia_pdf');
+        Route::post('/ventas/import','VentasController@import');
+        Route::get('/ventas/excel','VentasController@excel');
+   
+   
+        Route::get('/compras', 'CompraController@index');
+        Route::post('/compras/import','CompraController@import');
+        Route::get('/compras/listarPdf','CompraController@listarPdf');
+        Route::get('/compras/listarDiario','CompraController@listarPdfDiario')->name('compras_dia_pdf');
+        Route::get('/compras/excel','CompraController@excel');
     
-    
-     //Rutas Categoria Moras
-    Route::get('/categoriaMora','CategoriaMoraController@index');
-    Route::get('/categoriaMora/buscarCategoria','CategoriaMoraController@buscarCategoria');
-    Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria'); 
-    
-     //Rutas Excel
-     Route::get('/venta/excel','VentaController@excel');
     });
 
     Route::group(['middleware'=>['TecnicoExtensionista']],function(){
-        //Rutas Fincas
-        Route::get('/finca','FincaController@index');
-        Route::post('/finca/registrar','FincaController@store');
-        Route::put('/finca/actualizar','FincaController@update');
-        
-        //Rutas Cultivos
-        Route::get('/cultivo','CultivoController@index');
-        Route::post('/cultivo/registrar','CultivoController@store');
-        Route::put('/cultivo/actualizar','CultivoController@update'); 
 
-          //Rutas productores
-        Route::get('/productor','ProductorController@index');
-        Route::post('/productor/registrar','ProductorController@store');
-        Route::put('/productor/actualizar','ProductorController@update');
+        //Rutas Fincas
+    Route::get('/finca','FincaController@index');
+    Route::post('/finca/registrar','FincaController@store');
+    Route::put('/finca/actualizar','FincaController@update');
+
+     //Rutas productores
+     Route::get('/productor','ProductorController@index');
+     Route::post('/productor/registrar','ProductorController@store');
+     Route::put('/productor/actualizar','ProductorController@update');
+     
+     //Rutas fertilizantes
+     Route::get('/fertilizante','FertilizanteController@index');
+     Route::post('/fertilizante/registrar','FertilizanteController@store');
+     Route::get('/fertilizante/listarPdf','FertilizanteController@listarPdf');
+     Route::get('/fertilizante/excel','FertilizanteController@excel');
+
+
+
+     //Rutas quimicos
+     Route::get('/aplicacionQ','AplicacionQuimicoController@index');
+     Route::post('/aplicacionQ/registrar','AplicacionQuimicoController@store');
+     Route::get('/aplicacionQ/listarPdf','AplicacionQuimicoController@listarPdf');
+     Route::get('/aplicacionQ/excel','AplicacionQuimicoController@excel');
+
+
+     Route::get('/quimicos','QuimicoController@index');
+     Route::post('/quimicos/registrar','QuimicoController@store');
+     Route::get('/quimicos/selectQuimico','QuimicoController@selectQuimico');
+     Route::get('/quimicos/listarPdf','QuimicoController@listarPdf');
+     Route::get('/quimicos/excel','QuimicoController@excel');
+
+     Route::get('/producFertilizante','ProductosFertilizanteController@index');
+     Route::post('/producFertilizante/registrar','ProductosFertilizanteController@store');
+     Route::get('/producFertilizante/selectFertilizante','ProductosFertilizanteController@selectFertilizante');
+     Route::get('/producFertilizante/listarPdf','ProductosFertilizanteController@listarPdf');
+     Route::get('/producFertilizante/excel','ProductosFertilizanteController@excel');   
+
+     Route::get('/proyeccion','ProyeccionController@index');
+     Route::post('/proyeccion/registrar','ProyeccionController@store'); 
+     Route::put('/proyeccion/actualizar','ProyeccionController@update'); 
+     Route::get('/proyeccion/listarPdf','ProyeccionController@listarPdf');
+     Route::get('/proyeccion/excel','ProyeccionController@excel');   
+
+
 
         //Rutas PDF
     Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');

@@ -64,6 +64,42 @@
                         </div>
                     </div>
                 </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4>Proyecciones 2021-1</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart">
+                                    <canvas id="proyeccion">                                                
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p>Proyecciones de cosecha Datos 2021-1.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4>Proyecciones 2021-2</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart">
+                                    <canvas id="proyeccion20212">                                                
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p>Proyecciones de cosecha Datos 2021-2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -91,6 +127,17 @@
                 ventas:[],
                 varTotalCompra:[],
                 varMesCompra:[],
+
+                varProyeccion:null,
+                charProyeccion:null,
+                proyeccion:[],
+                varTotalProyeccion:[],
+                varPeriodoProyeccion:[],
+
+                varProyeccion20212:null,
+                charProyeccion20212:null,
+                proyeccion20212:[],
+                varTotalProyeccion20212:[],
             }
         },
         methods: {
@@ -128,6 +175,32 @@
                     me.compras = respuesta.compras;
                     //cargamos los datos del chart
                     me.loadCompras();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             getProyeccion(){
+                let me=this;
+                var url= 'dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.proyeccion = respuesta.proyeccions;
+                    //cargamos los datos del chart
+                    me.loadProyeccion();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getProyeccion20212(){
+                let me=this;
+                var url= 'dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.proyeccion20212 = respuesta.proyeccions20212;
+                    //cargamos los datos del chart
+                    me.loadProyeccion20212();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -195,7 +268,7 @@
                     }
                 });
             },
-             loadCompras(){
+            loadCompras(){
                 let me=this;
                 me.compras.map(function(x){
                     me.varMesCompra.push(x.Fechaa);
@@ -210,6 +283,68 @@
                         datasets: [{
                             label: 'Compras',
                             data: me.varTotalCompra,
+                            backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                            borderColor: 'rgba(255, 165, 0, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+            loadProyeccion(){
+                let me=this;
+                me.proyeccion.map(function(x){
+                    me.varTotalProyeccion.push(x.Nacional);
+                    me.varTotalProyeccion.push(x.Exportacion);
+                });
+                me.varProyeccion=document.getElementById('proyeccion').getContext('2d');
+
+                me.charProyeccion = new Chart(me.varProyeccion, {
+                    type: 'bar',
+                    data: {
+                        labels:['Nacional','Exportacion'],
+                        datasets: [{
+                            label: 'Total Kg',
+                            data: me.varTotalProyeccion,
+                            backgroundColor: 'rgba(118, 244, 6, 0.2)',
+                            borderColor: 'rgba(118, 244, 6, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+             loadProyeccion20212(){
+                let me=this;
+                me.proyeccion20212.map(function(x){
+                    me.varTotalProyeccion20212.push(x.Nacional);
+                    me.varTotalProyeccion20212.push(x.Exportacion);
+                });
+                me.varProyeccion20212=document.getElementById('proyeccion20212').getContext('2d');
+
+                me.charProyeccion20212 = new Chart(me.varProyeccion20212, {
+                    type: 'bar',
+                    data: {
+                        labels:['Nacional','Exportacion'],
+                        datasets: [{
+                            label: 'Total Kg',
+                            data: me.varTotalProyeccion20212,
                             backgroundColor: 'rgba(118, 244, 6, 0.2)',
                             borderColor: 'rgba(118, 244, 6, 0.2)',
                             borderWidth: 1
@@ -231,6 +366,8 @@
             this.getVentas();
             this.getCompras();
             this.getIngresos();
+            this.getProyeccion();
+            this.getProyeccion20212();
         },
     }
 </script>

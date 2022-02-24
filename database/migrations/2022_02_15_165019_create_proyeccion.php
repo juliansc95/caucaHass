@@ -18,6 +18,8 @@ class CreateProyeccion extends Migration
             $table->increments('id');
             $table->unsignedInteger('productor_id');
             $table->unsignedInteger('finca_id');
+            $table->string('tipo');
+            $table->string('periodo');
             $table->integer('arbolesLoteUno');
             $table->integer('EdadArbolesLoteUno');
             $table->integer('kgProyectadoLoteUno');

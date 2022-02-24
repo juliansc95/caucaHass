@@ -1,7 +1,7 @@
 <template>
 <GmapMap
-      :center="{lat:2.954829514, lng:-76.269498922}"
-      :zoom="15"
+      :center="{lat:2.43823, lng:-76.61316}"
+      :zoom="12"
       map-type-id="roadmap"
       style="width: 100%; height: 500px" 
       id="googleMap"

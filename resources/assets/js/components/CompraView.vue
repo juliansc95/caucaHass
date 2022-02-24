@@ -12,9 +12,6 @@
                         <button type="button" @click="cargarPdf()" class="btn btn-info">
                             <i class="icon-doc"></i>&nbsp;Reporte Total
                         </button>
-                        <button type="button" @click="reporteDiario()" class="btn btn-info">
-                            <i class="icon-doc"></i>&nbsp;Reporte Diario
-                        </button>
                          <export-excel
                         class   = "button btn btn-success"
                         :data   = arrayVentaEx
@@ -678,7 +675,7 @@
                 });
             },
             pdfVenta(id){
-                window.open('http://gestion.asofrut.org/venta/pdf/'+id);
+                //window.open('http://gestion.asofrut.org/venta/pdf/'+id);
             },
             cargarPdf(){
                 //window.open('/caucahass/public/compras/listarPdf');

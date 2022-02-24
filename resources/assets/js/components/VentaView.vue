@@ -12,21 +12,18 @@
                         <button type="button" @click="cargarPdf()" class="btn btn-info">
                             <i class="icon-doc"></i>&nbsp;Reporte Total
                         </button>
-                        <button type="button" @click="reporteDiario()" class="btn btn-info">
-                            <i class="icon-doc"></i>&nbsp;Reporte Diario
-                        </button>
                          <export-excel
                         class   = "button btn btn-success"
                         :data   = arrayVentaEx
-                        worksheet = "Compra"
-                        name    = "compras.xls">
+                        worksheet = "Venta"
+                        name    = "ventas.xls">
                         Excel
                         </export-excel>
                         <export-excel
                         class   = "button btn btn-success"
                         :data   = arrayVentaEx
                         type="csv"
-                        name    = "compras.xls">
+                        name    = "ventas.xls">
                         csv
                         </export-excel>
                     </div>
@@ -577,7 +574,7 @@
             },
             listarVentaEx (){
                 let me=this;
-                var url= 'compras/excel';
+                var url= 'ventas/excel';
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     me.arrayVentaEx = respuesta.ventas;
