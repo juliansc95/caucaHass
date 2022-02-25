@@ -89710,6 +89710,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -89730,7 +89766,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             varCompra: null,
             charCompra: null
-        }, _defineProperty(_ref, 'ventas', []), _defineProperty(_ref, 'varTotalCompra', []), _defineProperty(_ref, 'varMesCompra', []), _defineProperty(_ref, 'varProyeccion', null), _defineProperty(_ref, 'charProyeccion', null), _defineProperty(_ref, 'proyeccion', []), _defineProperty(_ref, 'varTotalProyeccion', []), _defineProperty(_ref, 'varPeriodoProyeccion', []), _defineProperty(_ref, 'varProyeccion20212', null), _defineProperty(_ref, 'charProyeccion20212', null), _defineProperty(_ref, 'proyeccion20212', []), _defineProperty(_ref, 'varTotalProyeccion20212', []), _ref;
+        }, _defineProperty(_ref, 'ventas', []), _defineProperty(_ref, 'varTotalCompra', []), _defineProperty(_ref, 'varMesCompra', []), _defineProperty(_ref, 'varProyeccion', null), _defineProperty(_ref, 'charProyeccion', null), _defineProperty(_ref, 'proyeccion', []), _defineProperty(_ref, 'varTotalProyeccion', []), _defineProperty(_ref, 'varPeriodoProyeccion', []), _defineProperty(_ref, 'varProyeccion20212', null), _defineProperty(_ref, 'charProyeccion20212', null), _defineProperty(_ref, 'proyeccion20212', []), _defineProperty(_ref, 'varTotalProyeccion20212', []), _defineProperty(_ref, 'varProyeccion20221', null), _defineProperty(_ref, 'charProyeccion20221', null), _defineProperty(_ref, 'proyeccion20221', []), _defineProperty(_ref, 'varTotalProyeccion20221', []), _defineProperty(_ref, 'varProyeccion20222', null), _defineProperty(_ref, 'charProyeccion20222', null), _defineProperty(_ref, 'proyeccion20222', []), _defineProperty(_ref, 'varTotalProyeccion20222', []), _ref;
     },
 
     methods: {
@@ -89790,6 +89826,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 me.proyeccion20212 = respuesta.proyeccions20212;
                 //cargamos los datos del chart
                 me.loadProyeccion20212();
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        getProyeccion20221: function getProyeccion20221() {
+            var me = this;
+            var url = 'dashboard';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.proyeccion20221 = respuesta.proyeccions20221;
+                //cargamos los datos del chart
+                me.loadProyeccion20221();
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        getProyeccion20222: function getProyeccion20222() {
+            var me = this;
+            var url = 'dashboard';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.proyeccion20222 = respuesta.proyeccions20222;
+                //cargamos los datos del chart
+                me.loadProyeccion20222();
             }).catch(function (error) {
                 console.log(error);
             });
@@ -89933,8 +89993,70 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     datasets: [{
                         label: 'Total Kg',
                         data: me.varTotalProyeccion20212,
-                        backgroundColor: 'rgba(118, 244, 6, 0.2)',
-                        borderColor: 'rgba(118, 244, 6, 0.2)',
+                        backgroundColor: 'rgba(65, 105, 225, 0.2)',
+                        borderColor: 'rgba(65, 105, 225, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        loadProyeccion20221: function loadProyeccion20221() {
+            var me = this;
+            me.proyeccion20221.map(function (x) {
+                me.varTotalProyeccion20221.push(x.Nacional);
+                me.varTotalProyeccion20221.push(x.Exportacion);
+            });
+            me.varProyeccion20221 = document.getElementById('proyeccion20221').getContext('2d');
+
+            me.charProyeccion20221 = new Chart(me.varProyeccion20221, {
+                type: 'bar',
+                data: {
+                    labels: ['Nacional', 'Exportacion'],
+                    datasets: [{
+                        label: 'Total Kg',
+                        data: me.varTotalProyeccion20221,
+                        backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                        borderColor: 'rgba(255, 215, 0, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        loadProyeccion20222: function loadProyeccion20222() {
+            var me = this;
+            me.proyeccion20222.map(function (x) {
+                me.varTotalProyeccion20222.push(x.Nacional);
+                me.varTotalProyeccion20222.push(x.Exportacion);
+            });
+            me.varProyeccion20222 = document.getElementById('proyeccion20222').getContext('2d');
+
+            me.charProyeccion20222 = new Chart(me.varProyeccion20222, {
+                type: 'bar',
+                data: {
+                    labels: ['Nacional', 'Exportacion'],
+                    datasets: [{
+                        label: 'Total Kg',
+                        data: me.varTotalProyeccion20222,
+                        backgroundColor: 'rgba(255, 182, 193, 0.2)',
+                        borderColor: 'rgba(255, 182, 193, 0.2)',
                         borderWidth: 1
                     }]
                 },
@@ -89956,6 +90078,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.getIngresos();
         this.getProyeccion();
         this.getProyeccion20212();
+        this.getProyeccion20221();
+        this.getProyeccion20222();
     }
 });
 
@@ -90081,6 +90205,46 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
                     _c("p", [_vm._v("Proyecciones de cosecha Datos 2021-2.")])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-9" }, [
+                _c("div", { staticClass: "card card-chart" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h4", [_vm._v("Proyecciones 2022-1")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-content" }, [
+                    _c("div", { staticClass: "ct-chart" }, [
+                      _c("canvas", { attrs: { id: "proyeccion20221" } })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-footer" }, [
+                    _c("p", [_vm._v("Proyecciones de cosecha Datos 2022-1.")])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-9" }, [
+                _c("div", { staticClass: "card card-chart" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h4", [_vm._v("Proyecciones 2022-2")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-content" }, [
+                    _c("div", { staticClass: "ct-chart" }, [
+                      _c("canvas", { attrs: { id: "proyeccion20222" } })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-footer" }, [
+                    _c("p", [_vm._v("Proyecciones de cosecha Datos 2022-2.")])
                   ])
                 ])
               ])

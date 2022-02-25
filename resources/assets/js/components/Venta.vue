@@ -36,7 +36,7 @@
          onFileChange(e) {
         this.import_file = e.target.files[0];
         console.log(this.import_file);
-       let formData = new FormData();
+        let formData = new FormData();
         formData.append('import_file', this.import_file);
         console.log(formData);   
         

@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                  <div class="row">
+                <div class="row">
                     <div class="col-md-9">
                         <div class="card card-chart">
                             <div class="card-header">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                  <div class="row">
+                <div class="row">
                     <div class="col-md-9">
                         <div class="card card-chart">
                             <div class="card-header">
@@ -96,6 +96,42 @@
                             </div>
                             <div class="card-footer">
                                 <p>Proyecciones de cosecha Datos 2021-2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-9">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4>Proyecciones 2022-1</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart">
+                                    <canvas id="proyeccion20221">                                                
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p>Proyecciones de cosecha Datos 2022-1.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-9">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h4>Proyecciones 2022-2</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="ct-chart">
+                                    <canvas id="proyeccion20222">                                                
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p>Proyecciones de cosecha Datos 2022-2.</p>
                             </div>
                         </div>
                     </div>
@@ -138,6 +174,16 @@
                 charProyeccion20212:null,
                 proyeccion20212:[],
                 varTotalProyeccion20212:[],
+
+                varProyeccion20221:null,
+                charProyeccion20221:null,
+                proyeccion20221:[],
+                varTotalProyeccion20221:[],
+
+                varProyeccion20222:null,
+                charProyeccion20222:null,
+                proyeccion20222:[],
+                varTotalProyeccion20222:[],
             }
         },
         methods: {
@@ -180,7 +226,7 @@
                     console.log(error);
                 });
             },
-             getProyeccion(){
+            getProyeccion(){
                 let me=this;
                 var url= 'dashboard';
                 axios.get(url).then(function (response) {
@@ -201,6 +247,32 @@
                     me.proyeccion20212 = respuesta.proyeccions20212;
                     //cargamos los datos del chart
                     me.loadProyeccion20212();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getProyeccion20221(){
+                let me=this;
+                var url= 'dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.proyeccion20221 = respuesta.proyeccions20221;
+                    //cargamos los datos del chart
+                    me.loadProyeccion20221();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             getProyeccion20222(){
+                let me=this;
+                var url= 'dashboard';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.proyeccion20222 = respuesta.proyeccions20222;
+                    //cargamos los datos del chart
+                    me.loadProyeccion20222();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -330,7 +402,7 @@
                     }
                 });
             },
-             loadProyeccion20212(){
+            loadProyeccion20212(){
                 let me=this;
                 me.proyeccion20212.map(function(x){
                     me.varTotalProyeccion20212.push(x.Nacional);
@@ -345,8 +417,70 @@
                         datasets: [{
                             label: 'Total Kg',
                             data: me.varTotalProyeccion20212,
-                            backgroundColor: 'rgba(118, 244, 6, 0.2)',
-                            borderColor: 'rgba(118, 244, 6, 0.2)',
+                            backgroundColor: 'rgba(65, 105, 225, 0.2)',
+                            borderColor: 'rgba(65, 105, 225, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+            loadProyeccion20221(){
+                let me=this;
+                me.proyeccion20221.map(function(x){
+                    me.varTotalProyeccion20221.push(x.Nacional);
+                    me.varTotalProyeccion20221.push(x.Exportacion);
+                });
+                me.varProyeccion20221=document.getElementById('proyeccion20221').getContext('2d');
+
+                me.charProyeccion20221 = new Chart(me.varProyeccion20221, {
+                    type: 'bar',
+                    data: {
+                        labels:['Nacional','Exportacion'],
+                        datasets: [{
+                            label: 'Total Kg',
+                            data: me.varTotalProyeccion20221,
+                            backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                            borderColor: 'rgba(255, 215, 0, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            },
+            loadProyeccion20222(){
+                let me=this;
+                me.proyeccion20222.map(function(x){
+                    me.varTotalProyeccion20222.push(x.Nacional);
+                    me.varTotalProyeccion20222.push(x.Exportacion);
+                });
+                me.varProyeccion20222=document.getElementById('proyeccion20222').getContext('2d');
+
+                me.charProyeccion20222 = new Chart(me.varProyeccion20222, {
+                    type: 'bar',
+                    data: {
+                        labels:['Nacional','Exportacion'],
+                        datasets: [{
+                            label: 'Total Kg',
+                            data: me.varTotalProyeccion20222,
+                            backgroundColor: 'rgba(255, 182, 193, 0.2)',
+                            borderColor: 'rgba(255, 182, 193, 0.2)',
                             borderWidth: 1
                         }]
                     },
@@ -368,6 +502,8 @@
             this.getIngresos();
             this.getProyeccion();
             this.getProyeccion20212();
+            this.getProyeccion20221();
+            this.getProyeccion20222();
         },
     }
 </script>

@@ -5,6 +5,8 @@ namespace App\Imports;
 use App\Ventas;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
+
 
 class VentasImport implements ToModel
 {
@@ -32,5 +34,16 @@ class VentasImport implements ToModel
             'Documento' => $row[13],
             'NombreTercero' => $row[14]
         ]);
+    }
+
+    public function getCsvSettings(): array
+    {
+        return [
+            'delimiter' => ",",
+            'enclosure'        => '',
+            'escape_character' => '\\',
+            'contiguous'       => false,
+            'input_encoding'   => 'UCS-2', // if this not worked use `UCS-2`
+        ];
     }
 }
