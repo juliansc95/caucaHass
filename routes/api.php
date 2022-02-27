@@ -94,3 +94,7 @@
     Route::post('/vocacion/registrar', 'VocacionController@store');
 
     Route::post('/cosecha/registrar', 'CosechaController@store');
+
+    Route::post('/fertilizante/registrar','FertilizanteController@store');
+    
+    Route::post('/aplicacionQ/registrar','AplicacionQuimicoController@store');
